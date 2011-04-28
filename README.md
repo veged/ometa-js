@@ -1,14 +1,13 @@
 # OMeta/JS
 
 OMeta/JS is a JavaScript implementation of OMeta,
-a object-oriented language for pattern matching.
+an object-oriented language for pattern matching.
 
 This repository is a fork.
-I allowed myself to much to restructure the code under the common layout
-and make the file extensions for ease of compilation.
-There is also the NPM package and a command line utility.
+I restructured the code to make compilation easier.
+There are also NPM package and a command line utility.
 
-To study Ometa/JS and questions about the core is better
+To study Ometa/JS and ask questions about the core is better
 to contact the [original repository](http://github.com/alexwarth/ometa-js/)
 and its author, [Alessandro Warth](http://github.com/alexwarth).
 
@@ -16,7 +15,7 @@ and its author, [Alessandro Warth](http://github.com/alexwarth).
 
 ### Command line
 
-Used to compile the file in Ometa/JS to CommonJS module that exports objects grammars.
+Compiles Ometa/JS file to CommonJS module that exports objects grammars.
 
     > ometajs2js --help
     Usage: ometajs2js [options]
