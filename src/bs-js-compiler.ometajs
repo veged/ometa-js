@@ -24,10 +24,22 @@ ometa BSJSParser <: Parser {
                  | '+'   | ``--'' | ``-='' | '-'     | ``*='' | '*'     | ``/=''
                  | '/'   | ``%='' | '%'    | ``&&='' | ``&&'' | ``||='' | ``||''
                  | '.'   | '!'                                                   ):s -> [s, s],
-  tok          = spaces (name | keyword | number | str | special),
+  tok          = spaces (name | keyword | number | str | rexp | special),
   toks         = token*:ts spaces end                                                -> ts,
   token :tt    = tok:t ?(t[0] == tt)                                                 -> t[1],
   spacesNoNl   = (~'\n' space)*,
+
+  rexp         = '/' rexpBody:x '/' rexpFlag*:y                                      -> [#rexp, '/' + x + '/' + y.join('')],
+  rexpFlag     = 'g' | 'i' | 'm',
+  rexpBody     = rexpFChar:x rexpChar*:y                                             -> (x + y.join('')),
+  rexpFChar    = ~'*' rexpChar,
+  rexpChar     = ~'\\' ~'/' ~'[' rexpNoTerm
+               | escapeChar
+               | rexpClass,
+  rexpNoTerm   = ~'\n' ~'\r' char,
+  rexpClass    = '[' rexpClChar*:x ']'                                               -> ('[' + x.join('') + ']'),
+  rexpClChar   = ~']' ~'\\' rexpNoTerm
+               | escapeChar,
 
   expr = commaExpr,
   commaExpr = commaExpr:e1 "," asgnExpr:e2 -> [#binop, ",", e1, e2]
@@ -95,6 +107,7 @@ ometa BSJSParser <: Parser {
                | "string":s                                                          -> [#string, s]
                | "function" funcRest
                | "new" "name":n "(" listOf(#asgnExpr, ','):as ")"                    -> [#new, n].concat(as)
+               | "rexp":x                                                            -> [#rexp, x]
                | "[" listOf(#asgnExpr, ','):es "]"                                   -> [#arr].concat(es)
                | json,
   json         = "{" listOf(#jsonBinding, ','):bs "}"                                -> [#json].concat(bs),
@@ -109,6 +122,7 @@ ometa BSJSParser <: Parser {
   block        = "{" srcElems:ss "}"                                                 -> ss,
   vars         = "var" listOf(#binding, ','):bs                                      -> [#var].concat(bs),
   stmt         = block
+               | rexp
                | vars:bs sc                                                          -> bs
                | "if" "(" expr:c ")" stmt:t ( "else" stmt
                                             | empty -> [#get, 'undefined'] ):f       -> [#if, c, t, f]
@@ -178,6 +192,7 @@ ometa BSJSTranslator {
   continue                                              -> 'continue',
   number   :n                                           -> ('(' + n + ')'),
   string   :s                                           -> s.toProgramString(),
+  rexp     :x                                           -> x,
   arr      trans*:xs                                    -> ('[' + xs.join(',') + ']'),
   unop     :op trans:x                                  -> ('(' + op + ' ' + x + ')'),
   getp     trans:fd trans:x                             -> (x + '[' + fd + ']'),
