@@ -10,7 +10,7 @@ ometa BSJSParser {
   hexLit       = hexLit:n hexDigit:d                                                 -> (n * 16 + d)
                | hexDigit,
   number       = ``0x'' hexLit:n                                                     -> [#number, n]
-               | <digit+ ('e' '-'? digit+)?>:f                                       -> [#number, parseFloat(f)]
+               | <digit+ (('e' | 'E') ('-' | '+')? digit+)?>:f                       -> [#number, parseFloat(f)]
                | <digit+ ('.' digit+)?>:f                                            -> [#number, parseFloat(f)],
   escapeChar   = <'\\' ('u' hexDigit hexDigit hexDigit hexDigit
                       | 'x' hexDigit hexDigit
