@@ -1,0 +1,172 @@
+<!DOCTYPE html>  <html> <head>   <title>utils.js</title>   <meta http-equiv="content-type" content="text/html; charset=UTF-8">   <link rel="stylesheet" media="all" href="docco.css" /> </head> <body>   <div id="container">     <div id="background"></div>            <div id="jump_to">         Jump To &hellip;         <div id="jump_wrapper">           <div id="jump_page">                                           <a class="source" href="api.html">                 api.js               </a>                                           <a class="source" href="cli.html">                 cli.js               </a>                                           <a class="source" href="core.html">                 core.js               </a>                                           <a class="source" href="parser.html">                 parser.js               </a>                                           <a class="source" href="utils.html">                 utils.js               </a>                        </div>         </div>       </div>          <table cellpadding="0" cellspacing="0">       <thead>         <tr>           <th class="docs">             <h1>               utils.js             </h1>           </th>           <th class="code">           </th>         </tr>       </thead>       <tbody>                               <tr id="section-1">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-1">&#182;</a>               </div>               <h3>function StringBuffer(*contents)</h3>
+
+<h4>contents - any number of string arguments</h4>
+
+<p>@constructor</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">StringBuffer</span><span class="p">()</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">buffer</span> <span class="o">=</span> <span class="p">[];</span>
+  <span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">this</span><span class="p">.</span><span class="nx">put</span><span class="p">(</span><span class="nx">arguments</span><span class="p">[</span><span class="nx">idx</span><span class="p">]);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">StringBuffer</span> <span class="o">=</span> <span class="nx">StringBuffer</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-2">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-2">&#182;</a>               </div>               <h3>function put(item)</h3>
+
+<h4>@item {String} item to put in</h4>
+
+<p>Put item into buffer</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">StringBuffer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">put</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">put</span><span class="p">(</span><span class="nx">item</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="nx">item</span><span class="p">);</span>
+
+  <span class="k">return</span> <span class="k">this</span><span class="p">;</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-3">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-3">&#182;</a>               </div>               <h3>function contents()</h3>
+
+<p>Return joined contents of the buffer</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">StringBuffer</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">contents</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">contents</span><span class="p">()</span>  <span class="p">{</span>
+  <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">buffer</span><span class="p">.</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">);</span>
+<span class="p">};</span></pre></div>             </td>           </tr>                               <tr id="section-4">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-4">&#182;</a>               </div>               <h3>function objectThatDelegatesTo(obj, props)</h3>
+
+<h4>@obj {Object} parent object</h4>
+
+<h4>@props {Object} object to merge result with</h4>
+
+<p>Returns object with merged properties of <code>obj</code> and <code>props</code></p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">objectThatDelegatesTo</span><span class="p">(</span><span class="nx">obj</span><span class="p">,</span> <span class="nx">props</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">clone</span> <span class="o">=</span> <span class="nb">Object</span><span class="p">.</span><span class="nx">create</span><span class="p">(</span><span class="nx">obj</span> <span class="o">||</span> <span class="p">{});</span>
+
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">getOwnPropertyNames</span><span class="p">(</span><span class="nx">props</span> <span class="o">||</span> <span class="p">{}).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">clone</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">props</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="nx">clone</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">objectThatDelegatesTo</span> <span class="o">=</span> <span class="nx">objectThatDelegatesTo</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-5">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-5">&#182;</a>               </div>               <h3>function isImmutable(o)</h3>
+
+<h4>@o {any} object to perform check against</h4>
+
+<p>Returns true if object is immutable</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">isImmutable</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+   <span class="k">return</span> <span class="nx">o</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">o</span> <span class="o">===</span> <span class="kc">undefined</span> <span class="o">||</span>
+          <span class="k">typeof</span> <span class="nx">o</span> <span class="o">===</span> <span class="s1">&#39;boolean&#39;</span> <span class="o">||</span> <span class="k">typeof</span> <span class="nx">o</span> <span class="o">===</span> <span class="s1">&#39;number&#39;</span> <span class="o">||</span>
+          <span class="k">typeof</span> <span class="nx">o</span> <span class="o">===</span> <span class="s1">&#39;string&#39;</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">isImmutable</span> <span class="o">=</span> <span class="nx">isImmutable</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-6">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-6">&#182;</a>               </div>               <h3>function digitValue(str)</h3>
+
+<h4>@str {String} a string.</h4>
+
+<p>Returns digit value of first character in string</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">digitValue</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nx">str</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">-</span> <span class="s1">&#39;0&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">digitValue</span> <span class="o">=</span> <span class="nx">digitValue</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-7">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-7">&#182;</a>               </div>               <h3>function isSequenceable(o)</h3>
+
+<h4>@o {any} object to perform check against</h4>
+
+<p>Returns true if object is sequenceable</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">isSequenceable</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">typeof</span> <span class="nx">o</span> <span class="o">==</span> <span class="s1">&#39;string&#39;</span> <span class="o">||</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">o</span><span class="p">);</span>
+<span class="p">}</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">isSequenceable</span> <span class="o">=</span> <span class="nx">isSequenceable</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-8">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-8">&#182;</a>               </div>               <h3>function padNumber(num, len)</h3>
+
+<h4>@num {Number} input number</h4>
+
+<h4>@len {String} length of result</h4>
+
+<p>Adds padding zeros to the left of string</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">padNumber</span><span class="p">(</span><span class="nx">num</span><span class="p">,</span> <span class="nx">len</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">new</span> <span class="nb">Array</span><span class="p">(</span><span class="nx">len</span> <span class="o">-</span> <span class="nx">r</span><span class="p">.</span><span class="nx">length</span><span class="p">).</span><span class="nx">join</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="nx">num</span><span class="p">.</span><span class="nx">toString</span><span class="p">(</span><span class="mi">16</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="kd">var</span> <span class="nx">escapeHash</span> <span class="o">=</span> <span class="p">{};</span>
+<span class="k">for</span> <span class="p">(</span><span class="kd">var</span> <span class="nx">c</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">c</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">;</span> <span class="nx">c</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">escapeHash</span><span class="p">[</span><span class="nx">c</span><span class="p">]</span> <span class="o">=</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nx">c</span><span class="p">);</span>
+<span class="p">};</span>
+
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\&#39;&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>  <span class="o">=</span> <span class="s1">&#39;\\\&#39;&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;&quot;&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span>  <span class="o">=</span> <span class="s1">&#39;\\&quot;&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\\&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\\\&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\b&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\b&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\f&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\f&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\n&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\n&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\r&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\r&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\t&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\t&#39;</span><span class="p">;</span>
+<span class="nx">escapeHash</span><span class="p">[</span><span class="s1">&#39;\v&#39;</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)]</span> <span class="o">=</span> <span class="s1">&#39;\\v&#39;</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-9">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-9">&#182;</a>               </div>               <h3>function escapeChar(c)</h3>
+
+<h4>@c {String}</h4>
+
+<p>Escapes character with \</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">escapeChar</span><span class="p">(</span><span class="nx">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">code</span> <span class="o">=</span> <span class="nx">c</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+
+  <span class="k">if</span> <span class="p">(</span><span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">128</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">escapeStringFor</span><span class="p">[</span><span class="nx">code</span><span class="p">];</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="mi">128</span> <span class="o">&lt;=</span> <span class="nx">code</span> <span class="o">&amp;&amp;</span> <span class="nx">code</span> <span class="o">&lt;</span> <span class="mi">256</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;\\x&quot;</span> <span class="o">+</span> <span class="nx">padNumber</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+  <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="s2">&quot;\\u&quot;</span> <span class="o">+</span> <span class="nx">padNumber</span><span class="p">(</span><span class="nx">code</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">escapeChar</span> <span class="o">=</span> <span class="nx">escapeChar</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-10">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-10">&#182;</a>               </div>               <h3>function unescape(s)</h3>
+
+<h4>@s {String} input</h4>
+
+<p>Unescape character escaped with escapeChar</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">unescape</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="o">==</span> <span class="s1">&#39;\\&#39;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">switch</span> <span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span> <span class="p">{</span>
+      <span class="k">case</span> <span class="s2">&quot;&#39;&quot;</span><span class="o">:</span>  <span class="k">return</span> <span class="s2">&quot;&#39;&quot;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;&quot;&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;\\&#39;</span><span class="o">:</span> <span class="k">return</span> <span class="s1">&#39;\\&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;b&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;\b&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;f&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;\f&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;n&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;\n&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;r&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;\r&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;t&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;\t&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;v&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="s1">&#39;\v&#39;</span><span class="p">;</span>
+      <span class="k">case</span> <span class="s1">&#39;x&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="mi">16</span><span class="p">))</span>
+      <span class="k">case</span> <span class="s1">&#39;u&#39;</span><span class="o">:</span>  <span class="k">return</span> <span class="nb">String</span><span class="p">.</span><span class="nx">fromCharCode</span><span class="p">(</span><span class="nb">parseInt</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nx">substring</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">),</span> <span class="mi">16</span><span class="p">));</span>
+      <span class="k">default</span><span class="o">:</span>   <span class="k">return</span> <span class="nx">s</span><span class="p">.</span><span class="nx">charAt</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+
+  <span class="k">return</span> <span class="nx">s</span><span class="p">;</span>
+<span class="p">};</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">unescape</span> <span class="o">=</span> <span class="nx">unescape</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-11">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-11">&#182;</a>               </div>               <h3>function getTag(o)</h3>
+
+<h4>@o {Object} input</h4>
+
+<p>unique tags for objects (useful for making "hash tables")</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="kd">function</span> <span class="nx">getTag</span><span class="p">(</span><span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">if</span> <span class="p">(</span><span class="nx">o</span> <span class="o">===</span> <span class="kc">null</span> <span class="o">||</span> <span class="nx">o</span> <span class="o">===</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="nx">x</span>
+  <span class="p">}</span>
+
+  <span class="k">switch</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">o</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">case</span> <span class="s2">&quot;boolean&quot;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="nx">o</span> <span class="o">==</span> <span class="kc">true</span> <span class="o">?</span> <span class="s2">&quot;Btrue&quot;</span> <span class="o">:</span> <span class="s2">&quot;Bfalse&quot;</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">&quot;string&quot;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="s2">&quot;S&quot;</span> <span class="o">+</span> <span class="nx">o</span><span class="p">;</span>
+    <span class="k">case</span> <span class="s2">&quot;number&quot;</span><span class="o">:</span>
+      <span class="k">return</span> <span class="s2">&quot;N&quot;</span> <span class="o">+</span> <span class="nx">o</span><span class="p">;</span>
+    <span class="k">default</span><span class="o">:</span>
+      <span class="k">if</span> <span class="p">(</span><span class="nx">o</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="s2">&quot;_id_&quot;</span><span class="p">))</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">_id_</span><span class="p">;</span>
+      <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">o</span><span class="p">.</span><span class="nx">_id_</span> <span class="o">=</span> <span class="s2">&quot;R&quot;</span> <span class="o">+</span> <span class="nx">getTag</span><span class="p">.</span><span class="nx">id</span><span class="o">++</span><span class="p">;</span>
+      <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">};</span>
+<span class="nx">getTag</span><span class="p">.</span><span class="nx">id</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nx">exports</span><span class="p">.</span><span class="nx">getTag</span> <span class="o">=</span> <span class="nx">getTag</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-12">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-12">&#182;</a>               </div>               <p>Lift inspect to context</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">inspect</span> <span class="o">=</span> <span class="nx">require</span><span class="p">(</span><span class="s1">&#39;util&#39;</span><span class="p">).</span><span class="nx">inspect</span><span class="p">;</span></pre></div>             </td>           </tr>                               <tr id="section-13">             <td class="docs">               <div class="pilwrap">                 <a class="pilcrow" href="#section-13">&#182;</a>               </div>               <h3>function lift(target, sources)</h3>
+
+<h4>@target {Object} object to lift properties to</h4>
+
+<h4>@sourcs {Array} source objects</h4>
+
+<p>Lift all properties from source objects to target</p>             </td>             <td class="code">               <div class="highlight"><pre><span class="nx">exports</span><span class="p">.</span><span class="nx">lift</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">lift</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">sources</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nx">sources</span><span class="p">.</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+      <span class="nx">target</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+    <span class="p">});</span>
+  <span class="p">});</span>
+<span class="p">};</span>
+
+<span class="nx">exports</span><span class="p">.</span><span class="nx">clone</span> <span class="o">=</span> <span class="kd">function</span> <span class="nx">clone</span><span class="p">(</span><span class="nx">obj</span><span class="p">)</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nx">o</span> <span class="o">=</span> <span class="p">{};</span>
+
+  <span class="nb">Object</span><span class="p">.</span><span class="nx">keys</span><span class="p">(</span><span class="nx">obj</span><span class="p">).</span><span class="nx">forEach</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">key</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">o</span><span class="p">[</span><span class="nx">key</span><span class="p">]</span> <span class="o">=</span> <span class="nx">obj</span><span class="p">[</span><span class="nx">key</span><span class="p">];</span>
+  <span class="p">});</span>
+
+  <span class="k">return</span> <span class="nx">o</span><span class="p">;</span>
+<span class="p">};</span>
+
+</pre></div>             </td>           </tr>                </tbody>     </table>   </div> </body> </html> 
