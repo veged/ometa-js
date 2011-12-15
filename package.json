@@ -23,9 +23,11 @@
   "dependencies": {
     "coa": "0.3.x",
     "q": "0.7.x",
-    "uglify-js": "1.1.x"
+    "uglify-js": "1.2.x"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodeunit": "0.6.x"
+  },
   "bin": {
     "ometajs2js": "./bin/ometajs2js"
   },
