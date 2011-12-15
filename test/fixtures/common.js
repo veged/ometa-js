@@ -28,3 +28,9 @@ exports.lexems = function(code) {
 
   return lexems;
 };
+
+exports.parse = function(code) {
+  var parser = ometajs.parser.create(code);
+
+  return parser.execute();
+};
