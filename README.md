@@ -6,7 +6,7 @@
 \____/_/  /_/\___/\__/\__,_/\____//____/
 ```
 
-## Description
+## OMetaJS [![Build Status](https://secure.travis-ci.org/veged/ometa-js.png)](http://travis-ci.org/veged/ometa-js)
 
 OMetaJS is a JavaScript implementation of the OMeta, an object-oriented language
 for pattern matching.
