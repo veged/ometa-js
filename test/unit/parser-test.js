@@ -21,6 +21,11 @@ var units = [
         [ 'grammar', 'name2', 'name', [] ]
       ]
     ]
+  },
+  {
+    hint: 'grammar with one rule',
+    src: 'ometa name { rule }',
+    dst: [ 'topLevel', [ [ 'grammar', 'name', null, [ [ 'rule' ] ] ] ] ]
   }
 ];
 
