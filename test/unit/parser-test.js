@@ -38,7 +38,7 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', null, 'a' ] ] ]
+        [ [ 'rule', 'rule', [ 'arg', null, [], 'a' ] ] ]
       ] ]
     ]
   },
@@ -50,7 +50,7 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', 'sub', 'a' ] ] ]
+        [ [ 'rule', 'rule', [ 'arg', 'sub', [], 'a' ] ] ]
       ] ]
     ]
   },
@@ -62,7 +62,11 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', null, 'a' ] , [ 'arg', null, 'b' ] ] ]
+        [ [
+          'rule', 'rule',
+          [ 'arg', null, [], 'a' ],
+          [ 'arg', null, [], 'b' ]
+        ] ]
       ] ]
     ]
   },
@@ -75,8 +79,16 @@ var units = [
         'name',
         null,
         [
-          [ 'rule', 'rule1', [ 'arg', null, 'a' ] , [ 'arg', null, 'b' ] ],
-          [ 'rule', 'rule2', [ 'arg', null, 'c' ] , [ 'arg', null, 'd' ] ]
+          [
+            'rule', 'rule1',
+            [ 'arg', null, [], 'a' ],
+            [ 'arg', null, [], 'b' ]
+          ],
+          [
+            'rule', 'rule2',
+            [ 'arg', null, [], 'c' ],
+            [ 'arg', null, [], 'd' ]
+          ]
         ]
       ] ]
     ]
@@ -90,13 +102,21 @@ var units = [
           'grammar',
           'name',
           null,
-          [ [ 'rule', 'rule', [ 'arg', null, 'a' ] , [ 'arg', null, 'b' ] ] ]
+          [ [
+            'rule', 'rule',
+            [ 'arg', null, [], 'a' ],
+            [ 'arg', null, [], 'b' ]
+          ] ]
         ],
         [
           'grammar',
           'name2',
           null,
-          [ [ 'rule', 'rule', [ 'arg', null, 'c' ] , [ 'arg', null, 'd' ] ] ]
+          [ [
+            'rule', 'rule',
+            [ 'arg', null, [], 'c' ],
+            [ 'arg', null, [], 'd' ]
+          ] ]
         ]
       ]
     ]
@@ -109,7 +129,11 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', null, 'a' ] , [ 'arg', null, 'b' ] ] ]
+        [ [
+          'rule', 'rule',
+          [ 'arg', null, [], 'a' ],
+          [ 'arg', null, [], 'b' ]
+        ] ]
       ] ]
     ]
   },
@@ -121,7 +145,11 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', null, 'a' ] , [ 'arg', null, 'b' ] ] ]
+        [ [
+            'rule', 'rule',
+            [ 'arg', null, [], 'a' ],
+            [ 'arg', null, [], 'b' ]
+        ] ]
       ] ]
     ]
   },
