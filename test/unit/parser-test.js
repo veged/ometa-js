@@ -53,6 +53,30 @@ var units = [
         [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
       ] ]
     ]
+  },
+  {
+    hint: 'grammar with one rule with one left-arg and one right-arg',
+    src: 'ometa name { rule :a = :b }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'grammar with one rule with one left-arg and one right-arg in parens',
+    src: 'ometa name { rule :a = (:b) }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
+      ] ]
+    ]
   }
 ];
 
