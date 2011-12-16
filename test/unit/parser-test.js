@@ -43,7 +43,7 @@ var units = [
     ]
   },
   {
-    hint: 'grammar with one rule with two args',
+    hint: 'grammar with one rule and two args',
     src: 'ometa name { rule :a :b }',
     dst: [ 'topLevel',
       [ [
@@ -52,6 +52,41 @@ var units = [
         null,
         [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
       ] ]
+    ]
+  },
+  {
+    hint: 'grammar with two rules',
+    src: 'ometa name { rule1 :a :b, rule2 :c :d }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [
+          [ 'rule', 'rule1', [ 'arg', 'a' ] , [ 'arg', 'b' ] ],
+          [ 'rule', 'rule2', [ 'arg', 'c' ] , [ 'arg', 'd' ] ]
+        ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'two grammars with one rule and two args',
+    src: 'ometa name { rule :a :b } ometa name2 { rule :c :d }',
+    dst: [ 'topLevel',
+      [
+        [
+          'grammar',
+          'name',
+          null,
+          [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
+        ],
+        [
+          'grammar',
+          'name2',
+          null,
+          [ [ 'rule', 'rule', [ 'arg', 'c' ] , [ 'arg', 'd' ] ] ]
+        ]
+      ]
     ]
   },
   {
@@ -77,6 +112,11 @@ var units = [
         [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
       ] ]
     ]
+  },
+  {
+    hint: 'many small grammars',
+    src: new Array(10000).join('ometa name { rule :a = (:b) }'),
+    dst: false
   }
 ];
 
@@ -84,8 +124,10 @@ units.forEach(function(unit) {
   exports[unit.hint] = function(test) {
     if (unit.throws) {
       assert.throws(function () { common.parse(unit.src) });
-    } else {
+    } else if (unit.dst) {
       assert.deepEqual(common.parse(unit.src), unit.dst);
+    } else {
+      assert.ok(common.parse(unit.src).length > 0);
     }
     test.done();
   };
