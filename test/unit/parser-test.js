@@ -164,6 +164,20 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with host language argument of rule',
+    src: 'ometa name { rule another(1 + 2, [1,2,3].join(""),3):k -> k }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar', 'name', null,
+        [ [
+          'rule', 'rule',
+          [ 'arg', 'another', [ '1 + 2', '[1,2,3].join("")', '3' ], 'k' ],
+          [ 'body', 'k ' ]
+        ] ]
+      ] ]
+    ]
+  },
+  {
     hint: 'many small grammars',
     src: new Array(10000).join('ometa name { rule :a = (:b) }'),
     dst: false
