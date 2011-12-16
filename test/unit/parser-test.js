@@ -23,9 +23,36 @@ var units = [
     ]
   },
   {
-    hint: 'grammar with one rule',
-    src: 'ometa name { rule }',
-    dst: [ 'topLevel', [ [ 'grammar', 'name', null, [ [ 'rule' ] ] ] ] ]
+    hint: 'grammar with one empty rule',
+    src: 'ometa name { ruleName }',
+    dst: [ 'topLevel', [ [
+      'grammar', 'name', null,
+      [ [ 'rule', 'ruleName' ] ]
+    ] ] ]
+  },
+  {
+    hint: 'grammar with one rule with arg',
+    src: 'ometa name { rule :a }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [ 'rule', 'rule', [ 'arg', 'a' ] ] ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'grammar with one rule with two args',
+    src: 'ometa name { rule :a :b }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [ 'rule', 'rule', [ 'arg', 'a' ] , [ 'arg', 'b' ] ] ]
+      ] ]
+    ]
   }
 ];
 
