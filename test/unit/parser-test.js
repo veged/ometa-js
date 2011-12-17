@@ -165,7 +165,29 @@ var units = [
             'rule', 'rule',
             [
               [ 'arg', null, 'a' ],
-              [ 'group', ['arg', null, 'b'] ]
+              [ 'choice', ['arg', null, 'b'] ]
+            ]
+        ] ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'grammar with two args in parens (b | c)',
+    src: 'ometa name { rule (:b | :c | :d) }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [
+            'rule', 'rule',
+            [
+              [
+                'choice',
+                ['arg', null, 'b'],
+                ['arg', null, 'c'],
+                ['arg', null, 'd']
+              ]
             ]
         ] ]
       ] ]
