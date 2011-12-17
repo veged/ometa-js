@@ -236,7 +236,7 @@ var units = [
   },
   {
     hint: 'grammar with array match rule',
-    src: 'ometa name { rule [:a "123" :b] }',
+    src: 'ometa name { rule [:a ["123" :b] :c] }',
     dst: [ 'topLevel',
       [ [
         'grammar',
@@ -248,8 +248,12 @@ var units = [
               [
                 'list',
                 ['arg', null, 'a'],
-                ['token', '123'],
-                ['arg', null, 'b']
+                [
+                  'list',
+                  ['token', '123'],
+                  ['arg', null, 'b']
+                ],
+                ['arg', null, 'c']
               ]
             ]
         ] ]
