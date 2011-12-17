@@ -67,6 +67,22 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with one rule with super rule invocation',
+    src: 'ometa name { rule ^rule }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [
+            'rule', 'rule', [
+              [ 'super', [ 'match', [ null, 'rule' ] ] ]
+            ]
+        ] ]
+      ] ]
+    ]
+  },
+  {
     hint: 'grammar with one rule with rule-arg and arg',
     src: 'ometa name { rule sub :a }',
     dst: [ 'topLevel',
