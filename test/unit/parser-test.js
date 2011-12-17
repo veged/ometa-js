@@ -50,7 +50,11 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ [ 'arg', [ 'match', 'sub' ], 'a' ] ] ] ]
+        [ [
+            'rule', 'rule', [
+              [ 'arg', [ 'match', [null, 'sub'] ], 'a' ]
+            ]
+        ] ]
       ] ]
     ]
   },
@@ -161,7 +165,7 @@ var units = [
             'rule', 'rule',
             [
               [ 'arg', null, 'a' ],
-              [ 'arg', null, 'b' ]
+              [ 'group', ['arg', null, 'b'] ]
             ]
         ] ]
       ] ]
@@ -188,7 +192,11 @@ var units = [
           [
             [
               'arg',
-              ['call', 'another', [ '1 + 2', '[1,2,3].join("")', '3' ] ],
+              [
+                'call',
+                [null, 'another'],
+                [ '1 + 2', '[1,2,3].join("")', '3' ],
+              ],
               'k'
             ],
           ],
@@ -204,7 +212,7 @@ var units = [
   }
 ];
 
-units.forEach(function(unit) {
+units.forEach(function(unit, i) {
   exports[unit.hint] = function(test) {
     if (unit.throws) {
       assert.throws(function () { common.parse(unit.src) });
