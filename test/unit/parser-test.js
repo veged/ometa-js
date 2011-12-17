@@ -59,6 +59,23 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with one rule with rule-arg and arg',
+    src: 'ometa name { rule sub :a }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [
+            'rule', 'rule', [
+              [ 'match', [null, 'sub'] ],
+              [ 'arg', null, 'a']
+            ]
+        ] ]
+      ] ]
+    ]
+  },
+  {
     hint: 'grammar with one rule and two args',
     src: 'ometa name { rule :a :b }',
     dst: [ 'topLevel',
@@ -187,6 +204,28 @@ var units = [
                 ['arg', null, 'b'],
                 ['arg', null, 'c'],
                 ['arg', null, 'd']
+              ]
+            ]
+        ] ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'grammar with array match rule',
+    src: 'ometa name { rule [:a "123" :b] }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [
+            'rule', 'rule',
+            [
+              [
+                'list',
+                ['arg', null, 'a'],
+                ['token', '123'],
+                ['arg', null, 'b']
               ]
             ]
         ] ]
