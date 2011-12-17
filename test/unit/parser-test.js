@@ -272,11 +272,11 @@ var units = [
   },
   {
     hint: 'grammar with host language body of rule',
-    src: 'ometa name { rule -> { x = y * x + fn(1,2,3); } }',
+    src: 'ometa name { rule -> { x = y * x + fn(#1,2,3); } }',
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [], [ 'body', '{ x = y * x + fn(1,2,3); } ' ] ] ]
+        [ [ 'rule', 'rule', [], [ 'body', '{ x = y * x + fn("1",2,3); } ' ] ] ]
       ] ]
     ]
   },
