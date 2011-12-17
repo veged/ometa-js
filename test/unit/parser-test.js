@@ -51,6 +51,16 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with one rule with predicate',
+    src: 'ometa name { ruleName = ?(doAnything())}',
+    dst: [ 'topLevel', [ [
+      'grammar', 'name', null,
+      [ [ 'rule', 'ruleName', [
+        [ 'predicate', '(doAnything())' ]
+      ] ] ]
+    ] ] ]
+  },
+  {
     hint: 'grammar with one rule with rule-arg',
     src: 'ometa name { rule sub:a }',
     dst: [ 'topLevel',
