@@ -6,7 +6,6 @@ exports['lexer test'] = function(test) {
     { type: 'name', value: 'abc', offset: 0 },
     { type: 'space', value: ' ', offset: 3 },
     { type: 'string', value: 'abc', offset: 4 },
-    { type: 'name', value: 'c', offset: 7 },
     { type: 'space', value: ' ', offset: 8 },
     { type: 'string', value: '"a""bc', offset: 9 },
     { type: 'space', value: ' ', offset: 17 },
@@ -17,7 +16,6 @@ exports['lexer test'] = function(test) {
     { type: 'space', value: ' ', offset: 26 },
     { type: 'punc', value: '[', offset: 27 },
     { type: 'string', value: 'a', offset: 28 },
-    { type: 'name', value: 'a', offset: 29 },
     { type: 'space', value: ' ', offset: 30 },
     { type: 'punc', value: ']', offset: 31 }
   ], common.lexems('abc `abc \'"a""bc\' "abc" {} [#a ]'));
