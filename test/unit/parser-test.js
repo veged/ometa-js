@@ -262,7 +262,17 @@ var units = [
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [], '{ x = y * x + fn(1,2,3); } ' ] ]
+        [ [ 'rule', 'rule', [], [ 'body', '{ x = y * x + fn(1,2,3); } ' ] ] ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'grammar with host language arg of rule',
+    src: 'ometa name { rule { x = y * x + fn(1,2,3); } }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar', 'name', null,
+        [ [ 'rule', 'rule', [ [ 'code', 'x = y * x + fn(1,2,3); ' ] ] ] ]
       ] ]
     ]
   },
@@ -285,7 +295,7 @@ var units = [
               'k'
             ],
           ],
-          'k '
+          ['body', 'k ']
         ] ]
       ] ]
     ]
