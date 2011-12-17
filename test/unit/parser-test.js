@@ -276,7 +276,7 @@ var units = [
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [ [ 'code', 'x = y * x + fn(1,2,3); ' ] ] ] ]
+        [ [ 'rule', 'rule', [ [ 'body', 'x = y * x + fn(1,2,3); ' ] ] ] ]
       ] ]
     ]
   },
