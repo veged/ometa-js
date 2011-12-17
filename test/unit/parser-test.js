@@ -5,11 +5,19 @@ var units = [
   { hint: 'only keyword', src: 'ometa', throws: true },
   { hint: 'no closing bracket', src: 'ometa name {', throws: true },
   { hint: '<: without name', src: 'ometa name <: { }', throws: true },
-  { hint: 'no keyword', src: 'name {}', throws: true },
   {
     hint: 'empty grammar',
     src: 'ometa name {\n}',
     dst: [ 'topLevel', [ [ 'grammar', 'name', null, [] ] ] ]
+  },
+  {
+    hint: 'empty grammar and host code',
+    src: 'var x = 1;\nometa name {\n};\nconsole.log("123");',
+    dst: [ 'topLevel', [
+        [ 'code', 'var x = 1;' ],
+        [ 'grammar', 'name', null, [] ],
+        [ 'code', ';\nconsole.log(123);']
+    ] ]
   },
   {
     hint: 'two empty grammars',
@@ -280,7 +288,9 @@ units.forEach(function(unit, i) {
     } else if (unit.dst) {
       assert.deepEqual(common.parse(unit.src), unit.dst);
     } else {
-      assert.ok(common.parse(unit.src).length > 0);
+      var ast = common.parse(unit.src);
+      assert.ok(Array.isArray(ast));
+      assert.ok(ast.length > 0);
     }
     test.done();
   };
