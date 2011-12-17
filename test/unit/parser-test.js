@@ -27,7 +27,7 @@ var units = [
     src: 'ometa name { ruleName }',
     dst: [ 'topLevel', [ [
       'grammar', 'name', null,
-      [ [ 'rule', 'ruleName' ] ]
+      [ [ 'rule', 'ruleName', [] ] ]
     ] ] ]
   },
   {
@@ -38,7 +38,7 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', null, [], 'a' ] ] ]
+        [ [ 'rule', 'rule', [ [ 'arg', null, 'a' ] ] ] ]
       ] ]
     ]
   },
@@ -50,7 +50,7 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ 'arg', 'sub', [], 'a' ] ] ]
+        [ [ 'rule', 'rule', [ [ 'arg', [ 'match', 'sub' ], 'a' ] ] ] ]
       ] ]
     ]
   },
@@ -64,8 +64,10 @@ var units = [
         null,
         [ [
           'rule', 'rule',
-          [ 'arg', null, [], 'a' ],
-          [ 'arg', null, [], 'b' ]
+          [
+            [ 'arg', null, 'a' ],
+            [ 'arg', null, 'b' ]
+          ]
         ] ]
       ] ]
     ]
@@ -81,13 +83,17 @@ var units = [
         [
           [
             'rule', 'rule1',
-            [ 'arg', null, [], 'a' ],
-            [ 'arg', null, [], 'b' ]
+            [
+              [ 'arg', null, 'a' ],
+              [ 'arg', null, 'b' ]
+            ]
           ],
           [
             'rule', 'rule2',
-            [ 'arg', null, [], 'c' ],
-            [ 'arg', null, [], 'd' ]
+            [
+              [ 'arg', null, 'c' ],
+              [ 'arg', null, 'd' ]
+            ]
           ]
         ]
       ] ]
@@ -104,8 +110,10 @@ var units = [
           null,
           [ [
             'rule', 'rule',
-            [ 'arg', null, [], 'a' ],
-            [ 'arg', null, [], 'b' ]
+            [
+              [ 'arg', null, 'a' ],
+              [ 'arg', null, 'b' ]
+            ]
           ] ]
         ],
         [
@@ -114,8 +122,10 @@ var units = [
           null,
           [ [
             'rule', 'rule',
-            [ 'arg', null, [], 'c' ],
-            [ 'arg', null, [], 'd' ]
+            [
+              [ 'arg', null, 'c' ],
+              [ 'arg', null, 'd' ]
+            ]
           ] ]
         ]
       ]
@@ -131,8 +141,10 @@ var units = [
         null,
         [ [
           'rule', 'rule',
-          [ 'arg', null, [], 'a' ],
-          [ 'arg', null, [], 'b' ]
+          [
+            [ 'arg', null, 'a' ],
+            [ 'arg', null, 'b' ]
+          ]
         ] ]
       ] ]
     ]
@@ -147,8 +159,10 @@ var units = [
         null,
         [ [
             'rule', 'rule',
-            [ 'arg', null, [], 'a' ],
-            [ 'arg', null, [], 'b' ]
+            [
+              [ 'arg', null, 'a' ],
+              [ 'arg', null, 'b' ]
+            ]
         ] ]
       ] ]
     ]
@@ -159,7 +173,7 @@ var units = [
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [ 'body', '{ x = y * x + fn(1,2,3); } ' ] ] ]
+        [ [ 'rule', 'rule', [], '{ x = y * x + fn(1,2,3); } ' ] ]
       ] ]
     ]
   },
@@ -171,8 +185,14 @@ var units = [
         'grammar', 'name', null,
         [ [
           'rule', 'rule',
-          [ 'arg', 'another', [ '1 + 2', '[1,2,3].join("")', '3' ], 'k' ],
-          [ 'body', 'k ' ]
+          [
+            [
+              'arg',
+              ['call', 'another', [ '1 + 2', '[1,2,3].join("")', '3' ] ],
+              'k'
+            ],
+          ],
+          'k '
         ] ]
       ] ]
     ]
