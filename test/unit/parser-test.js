@@ -276,7 +276,7 @@ var units = [
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [], [ 'body', '{ x = y * x + fn("1",2,3); } ' ] ] ]
+        [ [ 'rule', 'rule', [[ 'result', '{ x = y * x + fn("1",2,3); } ' ]] ] ]
       ] ]
     ]
   },
@@ -293,26 +293,22 @@ var units = [
   {
     hint: 'grammar with host language argument of rule',
     src: 'ometa name { rule another(1 + 2, [1,2,3].join(""),3):k -> k }',
-    dst: [ 'topLevel',
-      [ [
-        'grammar', 'name', null,
-        [ [
-          'rule', 'rule',
-          [
-            [
-              'arg',
-              [
-                'call',
-                [null, 'another'],
-                [ '1 + 2', '[1,2,3].join("")', '3' ],
-              ],
+    dst: [ 'topLevel', [ [
+      'grammar',
+      'name',
+      null,
+      [ [ 'rule',
+          'rule',
+          [ [ 'arg',
+              [ 'call',
+                [ null, 'another' ],
+                [ '1 + 2', '[1,2,3].join("")', '3' ] ],
               'k'
             ],
-          ],
-          ['body', 'k ']
-        ] ]
+            [ 'result', 'k ' ]
+          ]
       ] ]
-    ]
+    ] ] ]
   },
   {
     hint: 'many small grammars',
