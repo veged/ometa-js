@@ -17,8 +17,10 @@ exports['lexer test'] = function(test) {
     { type: 'punc', value: '[', offset: 27 },
     { type: 'string', value: 'a', offset: 28 },
     { type: 'space', value: ' ', offset: 30 },
-    { type: 'punc', value: ']', offset: 31 }
-  ], common.lexems('abc `abc \'"a""\\\'\' "abc" {} [#a ]'));
+    { type: 'punc', value: ']', offset: 31 },
+    { type: 'comment', value: ' 123', offset: 32 },
+    { type: 'token', value: '123', offset: 39 }
+  ], common.lexems('abc `abc \'"a""\\\'\' "abc" {} [#a ]// 123\n"123"'));
 
   test.done();
 };
