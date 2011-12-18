@@ -51,6 +51,22 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with one rule with char sequence',
+    src: 'ometa name { rule ``abc\'\' }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [ 'rule', 'rule', [ [ 'choice', [
+          [ 'string', 'a' ],
+          [ 'string', 'b' ],
+          [ 'string', 'c' ]
+        ] ] ] ] ]
+      ] ]
+    ]
+  },
+  {
     hint: 'grammar with one rule with predicate',
     src: 'ometa name { ruleName = ?(doAnything())}',
     dst: [ 'topLevel', [ [
@@ -222,7 +238,7 @@ var units = [
   },
   {
     hint: 'grammar with one rule with one left-arg and one right-arg in parens',
-    src: 'ometa name { rule :a = (:b) }',
+    src: 'ometa name { rule :a = (:b :d) }',
     dst: [ 'topLevel',
       [ [
         'grammar',
@@ -232,7 +248,7 @@ var units = [
             'rule', 'rule',
             [
               [ 'arg', null, 'a' ],
-              [ 'choice', ['arg', null, 'b'] ]
+              [ 'choice', [ ['arg', null, 'b'], ['arg', null, 'd'] ] ]
             ]
         ] ]
       ] ]
@@ -251,9 +267,9 @@ var units = [
             [
               [
                 'choice',
-                ['arg', null, 'b'],
-                ['match', null, 'c'],
-                ['arg', null, 'd']
+                [ ['arg', null, 'b'] ],
+                [ ['match', null, 'c'] ],
+                [ ['arg', null, 'd'] ]
               ]
             ]
         ] ]
@@ -276,7 +292,7 @@ var units = [
                 ['arg', null, 'a'],
                 [
                   'list',
-                  ['token', '123'],
+                  ['call', null, 'token', ['123']],
                   ['arg', null, 'b']
                 ],
                 ['arg', null, 'c']
@@ -317,7 +333,8 @@ var units = [
           'rule',
           [ [ 'arg',
               [ 'call',
-                [ null, 'another' ],
+                null,
+                'another',
                 [ '1 + 2', '[1,2,3].join("")', '3' ] ],
               'k'
             ],
@@ -329,6 +346,16 @@ var units = [
   {
     hint: 'many small grammars',
     src: new Array(10000).join('ometa name { rule :a = (:b) }'),
+    dst: false
+  },
+  {
+    hint: 'bs-js-compiler',
+    src: common.loadFile('bs-js-compiler'),
+    dst: false
+  },
+  {
+    hint: 'bs-ometa-compiler',
+    src: common.loadFile('bs-ometa-compiler'),
     dst: false
   }
 ];

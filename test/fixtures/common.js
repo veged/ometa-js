@@ -5,9 +5,15 @@ ometajs.root = __dirname + '/../../lib/ometajs';
 
 exports.ometajs = ometajs;
 
+exports.loadFile = function loadFile(name) {
+  return fs.readFileSync(
+    __dirname + '/../files/' + name + '.ometajs'
+  ).toString()
+};
+
 exports.translate = function translate(name, options) {
-  var code = fs.readFileSync(__dirname + '/../files/' + name + '.ometajs');
-  return ometajs.translateCode(code.toString(), options);
+  var code = exports.loadFile(name);
+  return ometajs.translateCode(code, options);
 };
 
 exports.compile = function compile(name) {
