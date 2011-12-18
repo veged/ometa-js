@@ -70,7 +70,7 @@ var units = [
         null,
         [ [
             'rule', 'rule', [
-              [ 'arg', [ 'match', [null, 'sub'] ], 'a' ]
+              [ 'arg', [ 'match', null, 'sub' ], 'a' ]
             ]
         ] ]
       ] ]
@@ -86,7 +86,7 @@ var units = [
         null,
         [ [
             'rule', 'rule', [
-              [ 'arg', [ 'any', [ 'match', [null, 'sub'] ] ], 'a' ]
+              [ 'arg', [ 'any', [ 'match', null, 'sub' ] ], 'a' ]
             ]
         ] ]
       ] ]
@@ -102,7 +102,7 @@ var units = [
         null,
         [ [
             'rule', 'rule', [
-              [ 'super', [ 'match', [ null, 'rule' ] ] ]
+              [ 'super', [ 'match', null, 'rule' ] ]
             ]
         ] ]
       ] ]
@@ -118,7 +118,7 @@ var units = [
         null,
         [ [
             'rule', 'rule', [
-              [ 'match', [null, 'sub'] ],
+              [ 'match', null, 'sub' ],
               [ 'arg', null, 'a']
             ]
         ] ]
@@ -239,8 +239,8 @@ var units = [
     ]
   },
   {
-    hint: 'grammar with two args in parens (b | c)',
-    src: 'ometa name { rule (:b | :c | :d) }',
+    hint: 'grammar with two args in parens (:b | c | :d)',
+    src: 'ometa name { rule (:b | c | :d) }',
     dst: [ 'topLevel',
       [ [
         'grammar',
@@ -252,7 +252,7 @@ var units = [
               [
                 'choice',
                 ['arg', null, 'b'],
-                ['arg', null, 'c'],
+                ['match', null, 'c'],
                 ['arg', null, 'd']
               ]
             ]
