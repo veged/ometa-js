@@ -19,8 +19,11 @@ exports['lexer test'] = function(test) {
     { type: 'space', value: ' ', offset: 30 },
     { type: 'punc', value: ']', offset: 31 },
     { type: 'comment', value: ' 123', offset: 32 },
-    { type: 'token', value: '123', offset: 39 }
-  ], common.lexems('abc `abc \'"a""\\\'\' "abc" {} [#a ]// 123\n"123"'));
+    { type: 'token', value: '123', offset: 39 },
+    { type: 'comment', value: ' \n123\r ', offset: 44 }
+  ], common.lexems('abc `abc \'"a""\\\'\' "abc" ' +
+                   '{} [#a ]// 123\n"123"' +
+                   '/* \n123\r */'));
 
   test.done();
 };
