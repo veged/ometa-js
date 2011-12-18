@@ -72,7 +72,7 @@ var units = [
     dst: [ 'topLevel', [ [
       'grammar', 'name', null,
       [ [ 'rule', 'ruleName', [
-        [ 'predicate', '(doAnything())' ]
+        [ 'choice', [ [ 'predicate', '(doAnything())' ] ] ]
       ] ] ]
     ] ] ]
   },
@@ -230,7 +230,28 @@ var units = [
           'rule', 'rule',
           [
             [ 'arg', null, 'a' ],
-            [ 'arg', null, 'b' ]
+            [ 'choice', [ [ 'arg', null, 'b' ] ] ]
+          ]
+        ] ]
+      ] ]
+    ]
+  },
+  {
+    hint: 'grammar with one rule with one left-arg and two right choices',
+    src: 'ometa name { rule :a = :b :c | :d :e }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [
+          'rule', 'rule',
+          [
+            [ 'arg', null, 'a' ],
+            [ 'choice',
+              [ [ 'arg', null, 'b' ], [ 'arg', null, 'c' ] ],
+              [ [ 'arg', null, 'd' ], [ 'arg', null, 'e' ] ]
+            ]
           ]
         ] ]
       ] ]
@@ -248,7 +269,12 @@ var units = [
             'rule', 'rule',
             [
               [ 'arg', null, 'a' ],
-              [ 'choice', [ ['arg', null, 'b'], ['arg', null, 'd'] ] ]
+              [
+                'choice',
+                [
+                  [ 'choice', [ ['arg', null, 'b'], ['arg', null, 'd'] ] ]
+                ]
+              ]
             ]
         ] ]
       ] ]
