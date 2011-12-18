@@ -16,7 +16,7 @@ var units = [
     dst: [ 'topLevel', [
         [ 'code', 'var x = 1;' ],
         [ 'grammar', 'name', null, [] ],
-        [ 'code', ';\nconsole.log(123);']
+        [ 'code', ';\nconsole.log("123");']
     ] ]
   },
   {
