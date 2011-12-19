@@ -394,6 +394,9 @@ units.forEach(function(unit, i) {
       assert.deepEqual(common.parse(unit.src), unit.dst);
     } else {
       var ast = common.parse(unit.src);
+      if (unit.inspect) {
+        process.stdout.write(require('util').inspect(ast, false, 300));
+      }
       assert.ok(Array.isArray(ast));
       assert.ok(ast.length > 0);
     }
