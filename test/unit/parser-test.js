@@ -1,5 +1,6 @@
 var common = require('../fixtures/common'),
-    assert = require('assert');
+    assert = require('assert'),
+    uglify = require('uglify-js');
 
 var units = [
   { hint: 'only keyword', src: 'ometa', throws: true },
@@ -14,9 +15,9 @@ var units = [
     hint: 'empty grammar and host code',
     src: 'var x = 1;\nometa name {\n};\nconsole.log("123");',
     dst: [ 'topLevel', [
-        [ 'code', 'var x = 1;' ],
+        [ 'code', uglify.parser.parse('var x = 1;') ],
         [ 'grammar', 'name', null, [] ],
-        [ 'code', ';\nconsole.log("123");']
+        [ 'code', uglify.parser.parse(';\nconsole.log("123");')]
     ] ]
   },
   {
@@ -68,11 +69,11 @@ var units = [
   },
   {
     hint: 'grammar with one rule with predicate',
-    src: 'ometa name { ruleName = ?(doAnything())}',
+    src: 'ometa name { ruleName = ?doAnything}',
     dst: [ 'topLevel', [ [
       'grammar', 'name', null,
       [ [ 'rule', 'ruleName', [
-        [ 'choice', [ [ 'predicate', '(doAnything())' ] ] ]
+        [ 'choice', [ [ 'predicate', uglify.parser.parse('doAnything') ] ] ]
       ] ] ]
     ] ] ]
   },
@@ -249,8 +250,16 @@ var units = [
           [
             [ 'arg', null, 'a' ],
             [ 'choice',
-              [ [ 'arg', null, 'b' ], [ 'arg', null, 'c' ], [ 'result', 'b '] ],
-              [ [ 'arg', null, 'd' ], [ 'arg', null, 'e' ], [ 'result', 'e '] ]
+              [
+                [ 'arg', null, 'b' ],
+                [ 'arg', null, 'c' ],
+                [ 'result', uglify.parser.parse('b ')]
+              ],
+              [
+                [ 'arg', null, 'd' ],
+                [ 'arg', null, 'e' ],
+                [ 'result', uglify.parser.parse('e ')]
+              ]
             ]
           ]
         ] ]
@@ -334,7 +343,10 @@ var units = [
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [[ 'result', '{ x = y * x + fn("1",2,3); } ' ]] ] ]
+        [ [ 'rule', 'rule', [[
+          'result',
+          uglify.parser.parse('{ x = y * x + fn("1",2,3); } ')
+        ]] ] ]
       ] ]
     ]
   },
@@ -344,7 +356,10 @@ var units = [
     dst: [ 'topLevel',
       [ [
         'grammar', 'name', null,
-        [ [ 'rule', 'rule', [ [ 'body', 'x = y * x + fn(1,2,3); ' ] ] ] ]
+        [ [ 'rule', 'rule', [[
+          'body',
+          uglify.parser.parse('x = y * x + fn(1,2,3); ')
+        ]] ] ]
       ] ]
     ]
   },
@@ -361,18 +376,18 @@ var units = [
               [ 'call',
                 null,
                 'another',
-                [ '1 + 2', '[1,2,3].join("")', '3' ] ],
+                [
+                  uglify.parser.parse('1 + 2'),
+                  uglify.parser.parse('[1,2,3].join("")'),
+                  uglify.parser.parse('3')
+                ]
+              ],
               'k'
             ],
-            [ 'result', 'k ' ]
+            [ 'result', uglify.parser.parse('k ') ]
           ]
       ] ]
     ] ] ]
-  },
-  {
-    hint: 'many small grammars',
-    src: new Array(10000).join('ometa name { rule :a = (:b) }'),
-    dst: false
   },
   {
     hint: 'bs-js-compiler',
