@@ -40,3 +40,7 @@ exports.parse = function(code) {
 
   return parser.execute();
 };
+
+exports.ap = function(code) {
+  return new ometajs.core.AbstractParser(code);
+}
