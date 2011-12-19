@@ -238,7 +238,7 @@ var units = [
   },
   {
     hint: 'grammar with one rule with one left-arg and two right choices',
-    src: 'ometa name { rule :a = :b :c | :d :e }',
+    src: 'ometa name { rule :a = :b :c -> b | :d :e -> e }',
     dst: [ 'topLevel',
       [ [
         'grammar',
@@ -249,8 +249,8 @@ var units = [
           [
             [ 'arg', null, 'a' ],
             [ 'choice',
-              [ [ 'arg', null, 'b' ], [ 'arg', null, 'c' ] ],
-              [ [ 'arg', null, 'd' ], [ 'arg', null, 'e' ] ]
+              [ [ 'arg', null, 'b' ], [ 'arg', null, 'c' ], [ 'result', 'b '] ],
+              [ [ 'arg', null, 'd' ], [ 'arg', null, 'e' ], [ 'result', 'e '] ]
             ]
           ]
         ] ]
