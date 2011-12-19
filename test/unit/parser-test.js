@@ -47,7 +47,11 @@ var units = [
         'grammar',
         'name',
         null,
-        [ [ 'rule', 'rule', [ [ 'arg', null, 'a' ] ] ] ]
+        [ [ 'rule', 'rule', [ [
+          'arg',
+          [ 'match', null, 'anything' ],
+          'a'
+        ] ] ] ]
       ] ]
     ]
   },
@@ -136,7 +140,7 @@ var units = [
         [ [
             'rule', 'rule', [
               [ 'match', null, 'sub' ],
-              [ 'arg', null, 'a']
+              [ 'arg', [ 'match', null, 'anything' ], 'a']
             ]
         ] ]
       ] ]
@@ -153,8 +157,8 @@ var units = [
         [ [
           'rule', 'rule',
           [
-            [ 'arg', null, 'a' ],
-            [ 'arg', null, 'b' ]
+            [ 'arg', [ 'match', null, 'anything' ], 'a' ],
+            [ 'arg', [ 'match', null, 'anything' ], 'b' ]
           ]
         ] ]
       ] ]
@@ -172,15 +176,15 @@ var units = [
           [
             'rule', 'rule1',
             [
-              [ 'arg', null, 'a' ],
-              [ 'arg', null, 'b' ]
+              [ 'arg', [ 'match', null, 'anything' ], 'a' ],
+              [ 'arg', [ 'match', null, 'anything' ], 'b' ]
             ]
           ],
           [
             'rule', 'rule2',
             [
-              [ 'arg', null, 'c' ],
-              [ 'arg', null, 'd' ]
+              [ 'arg', [ 'match', null, 'anything' ], 'c' ],
+              [ 'arg', [ 'match', null, 'anything' ], 'd' ]
             ]
           ]
         ]
@@ -199,8 +203,8 @@ var units = [
           [ [
             'rule', 'rule',
             [
-              [ 'arg', null, 'a' ],
-              [ 'arg', null, 'b' ]
+              [ 'arg', [ 'match', null, 'anything' ], 'a' ],
+              [ 'arg', [ 'match', null, 'anything' ], 'b' ]
             ]
           ] ]
         ],
@@ -211,8 +215,8 @@ var units = [
           [ [
             'rule', 'rule',
             [
-              [ 'arg', null, 'c' ],
-              [ 'arg', null, 'd' ]
+              [ 'arg', [ 'match', null, 'anything' ], 'c' ],
+              [ 'arg', [ 'match', null, 'anything' ], 'd' ]
             ]
           ] ]
         ]
@@ -230,8 +234,8 @@ var units = [
         [ [
           'rule', 'rule',
           [
-            [ 'arg', null, 'a' ],
-            [ 'choice', [ [ 'arg', null, 'b' ] ] ]
+            [ 'arg', [ 'match', null, 'anything' ], 'a' ],
+            [ 'choice', [ [ 'arg', [ 'match', null, 'anything' ], 'b' ] ] ]
           ]
         ] ]
       ] ]
@@ -248,16 +252,16 @@ var units = [
         [ [
           'rule', 'rule',
           [
-            [ 'arg', null, 'a' ],
+            [ 'arg', [ 'match', null, 'anything' ], 'a' ],
             [ 'choice',
               [
-                [ 'arg', null, 'b' ],
-                [ 'arg', null, 'c' ],
+                [ 'arg', [ 'match', null, 'anything' ], 'b' ],
+                [ 'arg', [ 'match', null, 'anything' ], 'c' ],
                 [ 'result', uglify('b ')]
               ],
               [
-                [ 'arg', null, 'd' ],
-                [ 'arg', null, 'e' ],
+                [ 'arg', [ 'match', null, 'anything' ], 'd' ],
+                [ 'arg', [ 'match', null, 'anything' ], 'e' ],
                 [ 'result', uglify('e ')]
               ]
             ]
@@ -277,11 +281,16 @@ var units = [
         [ [
             'rule', 'rule',
             [
-              [ 'arg', null, 'a' ],
+              [ 'arg', [ 'match', null, 'anything' ], 'a' ],
               [
                 'choice',
                 [
-                  [ 'choice', [ ['arg', null, 'b'], ['arg', null, 'd'] ] ]
+                  [ 'choice',
+                    [
+                      ['arg', [ 'match', null, 'anything' ], 'b'],
+                      ['arg', [ 'match', null, 'anything' ], 'd']
+                    ]
+                  ]
                 ]
               ]
             ]
@@ -302,9 +311,9 @@ var units = [
             [
               [
                 'choice',
-                [ ['arg', null, 'b'] ],
+                [ ['arg', [ 'match', null, 'anything' ], 'b'] ],
                 [ ['match', null, 'c'] ],
-                [ ['arg', null, 'd'] ]
+                [ ['arg', [ 'match', null, 'anything' ], 'd'] ]
               ]
             ]
         ] ]
@@ -324,13 +333,13 @@ var units = [
             [
               [
                 'list',
-                ['arg', null, 'a'],
+                ['arg', [ 'match', null, 'anything' ], 'a'],
                 [
                   'list',
                   ['call', null, 'token', ['123']],
-                  ['arg', null, 'b']
+                  ['arg', [ 'match', null, 'anything' ], 'b']
                 ],
-                ['arg', null, 'c']
+                ['arg', [ 'match', null, 'anything' ], 'c']
               ]
             ]
         ] ]
