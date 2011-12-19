@@ -44,3 +44,7 @@ exports.parse = function(code) {
 exports.ap = function(code) {
   return new ometajs.core.AbstractParser(code);
 }
+
+exports.ag = function(code) {
+  return new ometajs.core.AbstractGrammar(code);
+}
