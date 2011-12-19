@@ -15,9 +15,9 @@ var units = [
     hint: 'empty grammar and host code',
     src: 'var x = 1;\nometa name {\n};\nconsole.log("123");',
     dst: [ 'topLevel', [
-        [ 'code', uglify.parser.parse('var x = 1;') ],
+        [ 'code', uglify('var x = 1;') ],
         [ 'grammar', 'name', null, [] ],
-        [ 'code', uglify.parser.parse(';\nconsole.log("123");')]
+        [ 'code', uglify(';\nconsole.log("123");')]
     ] ]
   },
   {
@@ -73,7 +73,7 @@ var units = [
     dst: [ 'topLevel', [ [
       'grammar', 'name', null,
       [ [ 'rule', 'ruleName', [
-        [ 'choice', [ [ 'predicate', uglify.parser.parse('doAnything') ] ] ]
+        [ 'choice', [ [ 'predicate', uglify('doAnything') ] ] ]
       ] ] ]
     ] ] ]
   },
@@ -253,12 +253,12 @@ var units = [
               [
                 [ 'arg', null, 'b' ],
                 [ 'arg', null, 'c' ],
-                [ 'result', uglify.parser.parse('b ')]
+                [ 'result', uglify('b ')]
               ],
               [
                 [ 'arg', null, 'd' ],
                 [ 'arg', null, 'e' ],
-                [ 'result', uglify.parser.parse('e ')]
+                [ 'result', uglify('e ')]
               ]
             ]
           ]
@@ -345,7 +345,7 @@ var units = [
         'grammar', 'name', null,
         [ [ 'rule', 'rule', [[
           'result',
-          uglify.parser.parse('{ x = y * x + fn("1",2,3); } ')
+          uglify('{ x = y * x + fn("1",2,3); } ')
         ]] ] ]
       ] ]
     ]
@@ -358,7 +358,7 @@ var units = [
         'grammar', 'name', null,
         [ [ 'rule', 'rule', [[
           'body',
-          uglify.parser.parse('x = y * x + fn(1,2,3); ')
+          uglify('x = y * x + fn(1,2,3); ')
         ]] ] ]
       ] ]
     ]
@@ -377,14 +377,14 @@ var units = [
                 null,
                 'another',
                 [
-                  uglify.parser.parse('1 + 2'),
-                  uglify.parser.parse('[1,2,3].join("")'),
-                  uglify.parser.parse('3')
+                  uglify('1 + 2'),
+                  uglify('[1,2,3].join("")'),
+                  uglify('3')
                 ]
               ],
               'k'
             ],
-            [ 'result', uglify.parser.parse('k ') ]
+            [ 'result', uglify('k ') ]
           ]
       ] ]
     ] ] ]
