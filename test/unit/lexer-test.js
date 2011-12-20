@@ -20,10 +20,15 @@ exports['lexer test'] = function(test) {
     { type: 'punc', value: ']', offset: 31 },
     { type: 'comment', value: ' 123', offset: 32 },
     { type: 'token', value: '123', offset: 39 },
-    { type: 'comment', value: ' \n123\r ', offset: 44 }
+    { type: 'comment', value: ' \n123\r ', offset: 44 },
+    { type: 'punc', value: '[', offset: 55 },
+    { type: 'string', value: '123', offset: 56 },
+    { type: 'space', value: ' ', offset: 60 },
+    { type: 'number', value: '123', offset: 61 },
+    { type: 'punc', value: ']', offset: 64 }
   ], common.lexems('abc `abc \'"a""\\\'\' "abc" ' +
                    '{} [#a ]// 123\n"123"' +
-                   '/* \n123\r */'));
+                   '/* \n123\r */[#123 123]'));
 
   test.done();
 };
