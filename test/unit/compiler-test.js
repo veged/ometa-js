@@ -178,3 +178,20 @@ exports['grammar with rule with a rhs'] = function(test) {
   );
   test.done();
 };
+
+exports['grammar with rule with a array match'] = function(test) {
+  var code = common.compile('ometa G <: P { a = ["a" b]:c }');
+  assert.equal(
+    code,
+    'function G(source) {P.call(this, source);};' +
+    'require("util").inherits(G,P);' +
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && ' +
+    '(this.enter("a",1) && this.open("list") && this.enter("a",1) && ' +
+    'this.simulate([function() {return"a"}], []) && this._rule_token() && ' +
+    'this.leave() && this._rule_b() && this.close() && this.leave() && ' +
+    'this.set("c")) && this.leave()' +
+    '};'
+  );
+  test.done();
+};
