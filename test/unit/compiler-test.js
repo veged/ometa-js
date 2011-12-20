@@ -163,14 +163,16 @@ exports['grammar with rule with a named choice'] = function(test) {
 };
 
 exports['grammar with rule with a rhs'] = function(test) {
-  var code = common.compile('ometa G <: P { a (b|c):t }');
+  var code = common.compile('ometa G <: P { a = b :b -> "b" | c -> "c" }');
   assert.equal(
     code,
     'function G(source) {P.call(this, source);};' +
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return this.enter("a",0) && ' +
-    '((this._rule_b()) || (this._rule_c())) && this.set("t") && ' +
+    '((this._rule_b() && this._rule_anything() && this.set("b") && ' +
+    'this.result(function(b) {return"b"}, ["b"])) || ' +
+    '(this._rule_c() && this.result(function(b) {return"c"}, ["b"]))) && ' + 
     'this.leave()' +
     '};'
   );
