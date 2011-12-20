@@ -55,6 +55,23 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with one rule with number and basic types',
+    src: 'ometa name { rule 123 true false null }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar',
+        'name',
+        null,
+        [ [ 'rule', 'rule', [
+          [ 'number', 123 ],
+          [ 'bool', true ],
+          [ 'bool', false ],
+          [ 'null' ]
+        ] ] ]
+      ] ]
+    ]
+  },
+  {
     hint: 'grammar with one rule with char sequence',
     src: 'ometa name { rule ``abc\'\' }',
     dst: [ 'topLevel',
