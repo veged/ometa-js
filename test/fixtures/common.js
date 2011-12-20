@@ -1,5 +1,7 @@
 var ometajs = require('../../lib/ometajs'),
-    fs = require('fs');
+    fs = require('fs'),
+    assert = require('assert'),
+    uglify = require('uglify-js');
 
 ometajs.root = __dirname + '/../../lib/ometajs';
 
@@ -17,8 +19,15 @@ exports.translate = function translate(name, options) {
 };
 
 exports.compile = function compile(code, options) {
-  var ast = ometajs.parser.create(code).execute();
-  return ometajs.compiler.create(ast, options).execute();
+  var ast = ometajs.parser.create(code).execute(),
+      code = ometajs.compiler.create(ast, options).execute();
+
+  // Just to check that it has correct syntax
+  assert.doesNotThrow(function() {
+    uglify(code);
+  });
+
+  return code;
 };
 
 exports.require = function compile(name) {
