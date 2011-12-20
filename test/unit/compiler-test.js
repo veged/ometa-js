@@ -231,3 +231,20 @@ exports['grammar with rule with a lookahead'] = function(test) {
   );
   test.done();
 };
+
+exports['grammar with rule with a chars'] = function(test) {
+  var code = common.compile('ometa G <: P { a = <\'1\' \'2\'> }');
+  assert.equal(
+    code,
+    'function G(source) {P.call(this, source);};' +
+    'require("util").inherits(G,P);' +
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && this.enter("a",1) && this.enter("a",2) && ' +
+    'this.open("chars") && ' +
+    'this.match("1") && this.match("2") && ' +
+    'this.close() && ' +
+    'this.leave() && this.leave() && this.leave()' +
+    '};'
+  );
+  test.done();
+};
