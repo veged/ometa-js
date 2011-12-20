@@ -91,9 +91,14 @@ exports['grammar with rule with two choices'] = function(test) {
     'G.prototype._rule_a = function _rule_a() {' +
     'return ' +
     'this.enter("a",0) && ' +
-    '((this._rule_anything() && this.set("b")) || ' +
-    '(this._rule_anything() && this.set("c"))) && ' +
-    'this.leave()' +
+    'this.enter("a",1) && ' +
+    '(this.enter("a",2) && ' +
+    'this._rule_anything() && this.set("b") && ' +
+    'this.leave() || ' +
+    'this.enter("a",3) && ' +
+    'this._rule_anything() && this.set("c") && ' +
+    'this.leave()) && ' +
+    'this.leave() && this.leave()' +
     '};'
   );
   test.done();
@@ -107,11 +112,15 @@ exports['grammar with rule with two choices and predicate'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return ' +
-    'this.enter("a",0) && ' +
-    '(this._rule_anything() && this.set("p") && ' +
-    '((this._rule_anything() && this.set("b")) || ' +
-    '(this._rule_anything() && this.set("c")))) && ' +
-    'this.leave()' +
+    'this.enter("a",0) && this.enter("a",1) && ' +
+    'this._rule_anything() && this.set("p") && ' +
+    '(this.enter("a",2) && ' +
+    'this._rule_anything() && this.set("b") && ' +
+    'this.leave() || ' +
+    'this.enter("a",3) && ' +
+    'this._rule_anything() && this.set("c") && ' + 
+    'this.leave()) && ' +
+    'this.leave() && this.leave()' +
     '};'
   );
   test.done();
@@ -155,8 +164,9 @@ exports['grammar with rule with a named choice'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return this.enter("a",0) && ' +
-    '((this._rule_b()) || (this._rule_c())) && this.set("t") && ' +
-    'this.leave()' +
+    '(this.enter("a",1) && this._rule_b() && this.leave() || ' +
+    'this.enter("a",2) && this._rule_c() && this.leave()) && ' +
+    'this.set("t") && this.leave()' +
     '};'
   );
   test.done();
@@ -170,9 +180,13 @@ exports['grammar with rule with a rhs'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return this.enter("a",0) && ' +
-    '((this._rule_b() && this._rule_anything() && this.set("b") && ' +
-    'this.result(function(b) {return"b"}, ["b"])) || ' +
-    '(this._rule_c() && this.result(function(b) {return"c"}, ["b"]))) && ' + 
+    '(this.enter("a",1) && ' +
+    'this._rule_b() && this._rule_anything() && this.set("b") && ' +
+    'this.result(function(b) {return"b"}, ["b"]) && ' +
+    'this.leave() || ' +
+    'this.enter("a",2) && ' +
+    'this._rule_c() && this.result(function(b) {return"c"}, ["b"]) && ' +
+    'this.leave()) && ' +
     'this.leave()' +
     '};'
   );
@@ -187,10 +201,14 @@ exports['grammar with rule with a array match'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return this.enter("a",0) && ' +
-    '(this.enter("a",1) && this.open("list") && this.enter("a",1) && ' +
-    'this.simulate([function() {return"a"}], []) && this._rule_token() && ' +
-    'this.leave() && this._rule_b() && this.close() && this.leave() && ' +
-    'this.set("c")) && this.leave()' +
+    'this.enter("a",1) && ' +
+    'this.enter("a",2) && ' +
+    'this.open("list") && this.sumulate([function() {return"a"}], []) && ' +
+    'this._rule_token() && ' +
+    'this._rule_b() && this.close() && ' +
+    'this.leave() && ' +
+    'this.set("c") && ' +
+    'this.leave() && this.leave()' +
     '};'
   );
   test.done();
