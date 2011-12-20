@@ -1,5 +1,6 @@
 var common = require('../fixtures/common'),
-    assert = require('assert');
+    assert = require('assert'),
+    uglify = require('uglify-js');
 
 var units = [
   { hint: 'only keyword', src: 'ometa', throws: true },
@@ -14,9 +15,9 @@ var units = [
     hint: 'empty grammar and host code',
     src: 'var x = 1;\nometa name {\n};\nconsole.log("123");',
     dst: [ 'topLevel', [
-        [ 'code', common.expressionify('var x = 1;') ],
+        [ 'code', uglify('var x = 1;') + '\n'],
         [ 'grammar', 'name', null, [] ],
-        [ 'code', common.expressionify(';\nconsole.log("123");')]
+        [ 'code', uglify(';\nconsole.log("123");') + '\n']
     ] ]
   },
   {

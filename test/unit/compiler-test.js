@@ -224,7 +224,7 @@ exports['grammar with rule with a array match'] = function(test) {
     'return this.enter("a",0) && ' +
     'this.enter("a",1) && ' +
     'this.enter("a",2) && ' +
-    'this.open("list") && this.sumulate([function() {return"a"}], []) && ' +
+    'this.open("list") && this.simulate([function() {return"a"}], []) && ' +
     'this._rule_token() && ' +
     'this._rule_b() && this.close() && ' +
     'this.leave() && ' +
