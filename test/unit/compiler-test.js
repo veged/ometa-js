@@ -27,7 +27,9 @@ exports['grammar with one empty rule'] = function(test) {
     code,
     'function G(source) {P.call(this, source);};' +
     'require("util").inherits(G,P);' +
-    'G.prototype._rule_a = function _rule_a() {return };'
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && this.leave()' +
+    '};'
   );
   test.done();
 };
@@ -38,8 +40,12 @@ exports['grammar with two empty rules'] = function(test) {
     code,
     'function G(source) {P.call(this, source);};' +
     'require("util").inherits(G,P);' +
-    'G.prototype._rule_a = function _rule_a() {return };' +
-    'G.prototype._rule_b = function _rule_b() {return };'
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && this.leave()' +
+    '};' +
+    'G.prototype._rule_b = function _rule_b() {' +
+    'return this.enter("b",0) && this.leave()' +
+    '};'
   );
   test.done();
 };
@@ -51,7 +57,9 @@ exports['grammar with rule with a match'] = function(test) {
     'function G(source) {P.call(this, source);};' +
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
-    'return this._rule_anything() && this.set("b")' +
+    'return this.enter("a",0) && ' +
+    'this._rule_anything() && this.set("b") && ' +
+    'this.leave()' +
     '};'
   );
   test.done();
@@ -64,8 +72,11 @@ exports['grammar with rule with two matches'] = function(test) {
     'function G(source) {P.call(this, source);};' +
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
-    'return this._rule_anything() && this.set("b") && ' +
-    'this._rule_anything() && this.set("c")' +
+    'return ' +
+    'this.enter("a",0) && ' +
+    'this._rule_anything() && this.set("b") && ' +
+    'this._rule_anything() && this.set("c") && ' +
+    'this.leave()' +
     '};'
   );
   test.done();
@@ -79,8 +90,10 @@ exports['grammar with rule with two choices'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return ' +
-    '(this._rule_anything() && this.set("b")) || ' +
-    '(this._rule_anything() && this.set("c"))' +
+    'this.enter("a",0) && ' +
+    '((this._rule_anything() && this.set("b")) || ' +
+    '(this._rule_anything() && this.set("c"))) && ' +
+    'this.leave()' +
     '};'
   );
   test.done();
@@ -94,9 +107,11 @@ exports['grammar with rule with two choices and predicate'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
     'return ' +
-    'this._rule_anything() && this.set("p") && ' +
+    'this.enter("a",0) && ' +
+    '(this._rule_anything() && this.set("p") && ' +
     '((this._rule_anything() && this.set("b")) || ' +
-    '(this._rule_anything() && this.set("c")))' +
+    '(this._rule_anything() && this.set("c")))) && ' +
+    'this.leave()' +
     '};'
   );
   test.done();
