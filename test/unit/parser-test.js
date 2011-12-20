@@ -1,6 +1,5 @@
 var common = require('../fixtures/common'),
-    assert = require('assert'),
-    uglify = require('uglify-js');
+    assert = require('assert');
 
 var units = [
   { hint: 'only keyword', src: 'ometa', throws: true },
@@ -15,9 +14,9 @@ var units = [
     hint: 'empty grammar and host code',
     src: 'var x = 1;\nometa name {\n};\nconsole.log("123");',
     dst: [ 'topLevel', [
-        [ 'code', uglify('var x = 1;') ],
+        [ 'code', common.expressionify('var x = 1;') ],
         [ 'grammar', 'name', null, [] ],
-        [ 'code', uglify(';\nconsole.log("123");')]
+        [ 'code', common.expressionify(';\nconsole.log("123");')]
     ] ]
   },
   {
@@ -77,7 +76,7 @@ var units = [
     dst: [ 'topLevel', [ [
       'grammar', 'name', null,
       [ [ 'rule', 'ruleName', [
-        [ 'choice', [ [ 'predicate', uglify('doAnything') ] ] ]
+        [ 'choice', [ [ 'predicate', common.expressionify('doAnything') ] ] ]
       ] ] ]
     ] ] ]
   },
@@ -257,12 +256,12 @@ var units = [
               [
                 [ 'arg', [ 'match', null, 'anything' ], 'b' ],
                 [ 'arg', [ 'match', null, 'anything' ], 'c' ],
-                [ 'result', uglify('b ')]
+                [ 'result', common.expressionify('b ')]
               ],
               [
                 [ 'arg', [ 'match', null, 'anything' ], 'd' ],
                 [ 'arg', [ 'match', null, 'anything' ], 'e' ],
-                [ 'result', uglify('e ')]
+                [ 'result', common.expressionify('e ')]
               ]
             ]
           ]
@@ -354,7 +353,7 @@ var units = [
         'grammar', 'name', null,
         [ [ 'rule', 'rule', [[
           'result',
-          uglify('{ x = y * x + fn("1",2,3); } ')
+          common.expressionify('{ x = y * x + fn("1",2,3); } ')
         ]] ] ]
       ] ]
     ]
@@ -367,7 +366,7 @@ var units = [
         'grammar', 'name', null,
         [ [ 'rule', 'rule', [[
           'body',
-          uglify('x = y * x + fn(1,2,3); ')
+          common.expressionify('x = y * x + fn(1,2,3); ')
         ]] ] ]
       ] ]
     ]
@@ -386,14 +385,14 @@ var units = [
                 null,
                 'another',
                 [
-                  uglify('1 + 2'),
-                  uglify('[1,2,3].join("")'),
-                  uglify('3')
+                  common.expressionify('1 + 2'),
+                  common.expressionify('[1,2,3].join("")'),
+                  common.expressionify('3')
                 ]
               ],
               'k'
             ],
-            [ 'result', uglify('k ') ]
+            [ 'result', common.expressionify('k ') ]
           ]
       ] ]
     ] ] ]

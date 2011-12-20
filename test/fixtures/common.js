@@ -48,3 +48,5 @@ exports.ap = function(code) {
 exports.ag = function(code) {
   return new ometajs.core.AbstractGrammar(code);
 }
+
+exports.expressionify = ometajs.utils.expressionify;

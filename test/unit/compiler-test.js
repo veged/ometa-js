@@ -116,3 +116,63 @@ exports['grammar with rule with two choices and predicate'] = function(test) {
   );
   test.done();
 };
+
+exports['grammar with rule with a rule invocation'] = function(test) {
+  var code = common.compile('ometa G <: P { a b }');
+  assert.equal(
+    code,
+    'function G(source) {P.call(this, source);};' +
+    'require("util").inherits(G,P);' +
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && ' +
+    'this._rule_b() && ' +
+    'this.leave()' +
+    '};'
+  );
+  test.done();
+};
+
+exports['grammar with rule with a named rule invocation'] = function(test) {
+  var code = common.compile('ometa G <: P { a b:b }');
+  assert.equal(
+    code,
+    'function G(source) {P.call(this, source);};' +
+    'require("util").inherits(G,P);' +
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && ' +
+    'this._rule_b() && this.set("b") && ' +
+    'this.leave()' +
+    '};'
+  );
+  test.done();
+};
+
+exports['grammar with rule with a named choice'] = function(test) {
+  var code = common.compile('ometa G <: P { a (b|c):t }');
+  assert.equal(
+    code,
+    'function G(source) {P.call(this, source);};' +
+    'require("util").inherits(G,P);' +
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && ' +
+    '((this._rule_b()) || (this._rule_c())) && this.set("t") && ' +
+    'this.leave()' +
+    '};'
+  );
+  test.done();
+};
+
+exports['grammar with rule with a rhs'] = function(test) {
+  var code = common.compile('ometa G <: P { a (b|c):t }');
+  assert.equal(
+    code,
+    'function G(source) {P.call(this, source);};' +
+    'require("util").inherits(G,P);' +
+    'G.prototype._rule_a = function _rule_a() {' +
+    'return this.enter("a",0) && ' +
+    '((this._rule_b()) || (this._rule_c())) && this.set("t") && ' +
+    'this.leave()' +
+    '};'
+  );
+  test.done();
+};
