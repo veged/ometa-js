@@ -16,9 +16,9 @@ exports.translate = function translate(name, options) {
   return ometajs.translateCode(code, options);
 };
 
-exports.compile = function compile(name) {
-  var code = fs.readFileSync(__dirname + '/../files/' + name + '.ometajs');
-  return ometajs.evalCode(code.toString());
+exports.compile = function compile(code, options) {
+  var ast = ometajs.parser.create(code).execute();
+  return ometajs.compiler.create(ast, options).execute();
 };
 
 exports.require = function compile(name) {
