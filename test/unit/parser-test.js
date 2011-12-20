@@ -335,7 +335,7 @@ var units = [
                 ['arg', [ 'match', null, 'anything' ], 'a'],
                 [
                   'list',
-                  ['call', null, 'token', ['123']],
+                  ['call', null, 'token', [common.expressionify('"123"')]],
                   ['arg', [ 'match', null, 'anything' ], 'b']
                 ],
                 ['arg', [ 'match', null, 'anything' ], 'c']
