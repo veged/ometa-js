@@ -87,3 +87,26 @@ exports['nested list (not full match)'] = function(test) {
 
   test.done();
 };
+
+exports['propagated intermediate'] = function(test) {
+  var p = common.ap('abc');
+  assert.ok(
+    p.enter('rule', 0, function() {
+      var res = (this.enter('rule', 1, function() {
+        return this.match('1');
+      }) || this.enter('rule', 2, function() {
+        return this.match('a') && this.match('c');
+      }) || this.enter('rule', 3, function() {
+        return this.match('a') && this.match('b');
+      })) &&
+      this.set('a') &&
+      this.match('c');
+
+      assert.equal(this.get('a'), 'ab');
+
+      return res;
+    })
+  );
+
+  test.done();
+};
