@@ -6,7 +6,7 @@ ometa BSJSParser {
   isKeyword :x = ?BSJSParser._isKeyword(x),
   name         = iName:n ~isKeyword(n)                                               -> [#name, n=='self' ? '$elf' : n],
   keyword      = iName:k isKeyword(k)                                                -> [k, k],
-  hexDigit     = char:x {this.hexDigits.indexOf(x.toLowerCase())}:v ?(v >= 0)        -> v,
+  hexDigit     = char:x {BSJSParser.hexDigits.indexOf(x.toLowerCase())}:v ?(v >= 0)        -> v,
   hexLit       = hexLit:n hexDigit:d                                                 -> (n * 16 + d)
                | hexDigit,
   number       = ``0x'' hexLit:n                                                     -> [#number, n]
