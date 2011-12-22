@@ -13,7 +13,7 @@ exports['just string'] = function(test) {
 exports['empty list'] = function(test) {
   var p = common.ap([[]]);
   assert.ok(p.enter('rule', 0, function(){
-    return this.open('list') && this.close();
+    return this.open('list') && this.close('list');
   }));
 
   test.done();
@@ -23,7 +23,7 @@ exports['non-empty list against empty'] = function(test) {
   var p = common.ap([[ 1 ]]);
   assert.ok(!(
     p.enter('rule', 0, function() {
-      return this.open('list') && this.close();
+      return this.open('list') && this.close('list');
     })
   ));
 
@@ -34,7 +34,7 @@ exports['number against list match'] = function(test) {
   var p = common.ap([ 1 ]);
   assert.ok(!(
     p.enter('rule', 0, function() {
-      return this.open('list') && this.match(1) && this.close();
+      return this.open('list') && this.match(1) && this.close('list');
     })
   ));
 
@@ -47,7 +47,7 @@ exports['non-empty list'] = function(test) {
     p.enter('rule', 0, function() {
       return this.open('list') &&
              this.match(1) && this.match(2) && this.match(3) &&
-             this.close()
+             this.close('list')
     })
   );
 
@@ -62,9 +62,9 @@ exports['nested list'] = function(test) {
              this.match(1) &&
              this.open('list') &&
              this.match(2) && this.match(3) &&
-             this.close() &&
+             this.close('list') &&
              this.match(4) &&
-             this.close()
+             this.close('list')
     })
   );
 
@@ -79,9 +79,9 @@ exports['nested list (not full match)'] = function(test) {
              this.match(1) &&
              this.open('list') &&
              this.match(2) && this.match(3) &&
-             this.close() &&
+             this.close('list') &&
              this.match(4) &&
-             this.close()
+             this.close('list')
     })
   ));
 
@@ -107,6 +107,30 @@ exports['propagated intermediate'] = function(test) {
       return res;
     })
   );
+
+  test.done();
+};
+
+exports['space'] = function(test) {
+  var p = common.ap(' 1');
+
+  assert.ok(p.space() && p.match('1'));
+
+  var p2 = common.ap('1');
+
+  assert.ok(!p.space());
+
+  test.done();
+};
+
+exports['spaces'] = function(test) {
+  var p = common.ap('       1');
+
+  assert.ok(p.spaces() && p.match('1'));
+
+  var p2 = common.ap('1');
+
+  assert.ok(p.spaces());
 
   test.done();
 };
