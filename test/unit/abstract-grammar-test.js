@@ -70,3 +70,18 @@ exports['`optional`: $ in string'] = function(test) {
 
   test.done();
 };
+
+exports['token rule'] = function(test) {
+  var g = common.ag('token1     token2');
+
+  assert.ok(
+    g.enter('rule', 0, function() {
+      return this.simulate([function() { return 'token1' }], []) &&
+             this._rule_token() &&
+             this.simulate([function() { return 'token2' }], []) &&
+             this._rule_token();
+    })
+  );
+
+  test.done();
+};

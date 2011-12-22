@@ -223,10 +223,10 @@ exports['grammar with rule with a array match'] = function(test) {
       'return this.enter("a",0,function(){' +
         'return true && this.enter("a",1,function(){' +
           'return true && this.enter("a",2,function(){' +
-            'return true && this.open("list") && ' +
-            'this.simulate([function() {return"a"}], []) && ' +
-            'this._rule_token() && ' +
-            'this._rule_b() && this.close()' +
+            'return true && this.open("list") && this.enter("a",3,function(){' +
+              'return true && this.simulate([function() {return"a"}], []) && ' +
+              'this._rule_token()' +
+            '}) && this._rule_b() && this.close("list")' +
           '}) && this.set("c")' +
         '})' +
       '})' +
@@ -247,7 +247,7 @@ exports['grammar with rule with a lookahead'] = function(test) {
         'return true && this.enter("a",1,function(){' +
           'return true && this.enter("a",2,function(){' +
             'return true && this.open("lookahead") && this._rule_b() && ' +
-            'this.close()' +
+            'this.close("lookahead")' +
           '}) && this.set("c")' +
         '})' +
       '})' +
@@ -270,7 +270,7 @@ exports['grammar with rule with a chars'] = function(test) {
         'return true && this.enter("a",1,function(){' +
           'return true && this.enter("a",2,function(){' +
             'return true && this.open("chars") && this.match("1") && ' +
-            'this.match("2") && this.close()' +
+            'this.match("2") && this.close("chars")' +
           '})' +
         '})' +
       '})' +
