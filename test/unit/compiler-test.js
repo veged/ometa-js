@@ -199,10 +199,10 @@ exports['grammar with rule with a rhs'] = function(test) {
       'return this.enter("a",0,function(){' +
         'return true && (this.enter("a",1,function(){' +
           'return true && this._rule_b() && this._rule_anything() && ' +
-          'this.set("b") && this.result(function(b) {return"b"}, ["b"])' +
+          'this.set("b") && this.body(function(b) {return"b"}, ["b"])' +
         '}) || this.enter("a",2,function(){' +
           'return true && this._rule_c() && ' +
-          'this.result(function(b) {return"c"}, ["b"])' +
+          'this.body(function(b) {return"c"}, ["b"])' +
         '}))' +
       '})' +
     '};'
