@@ -85,3 +85,21 @@ exports['token rule'] = function(test) {
 
   test.done();
 };
+
+exports['fromTo rule'] = function(test) {
+  var g = common.ag('a/* xyz */b');
+
+  assert.ok(
+    g.enter('rule', 0, function() {
+      return this.match('a') &&
+             this.simulate([
+               function() { return '/*' },
+               function() { return '*/' }
+             ], []) &&
+             this._rule_fromTo() &&
+             this.match('b');
+    })
+  );
+
+  test.done();
+};
