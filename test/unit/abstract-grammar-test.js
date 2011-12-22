@@ -13,7 +13,7 @@ exports['`any`: number in string'] = function(test) {
       });
     }));
 
-    assert.deepEqual(g.state.intermediate, value);
+    assert.deepEqual(g.intermediate, value);
   };
 
   check('123a', '123');
@@ -38,7 +38,7 @@ exports['`many` : number in string'] = function(test) {
       assert.ok(!start);
     } else {
       assert.ok(start);
-      assert.deepEqual(g.state.intermediate, value);
+      assert.deepEqual(g.intermediate, value);
     }
   };
 
@@ -62,7 +62,7 @@ exports['`optional`: $ in string'] = function(test) {
         })
       })
     );
-    assert.deepEqual(g.state.intermediate, value);
+    assert.deepEqual(g.intermediate, value);
   };
 
   check('$a', '$');
