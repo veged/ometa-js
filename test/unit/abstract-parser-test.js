@@ -89,7 +89,8 @@ exports['nested list (not full match)'] = function(test) {
 };
 
 exports['propagated intermediate'] = function(test) {
-  var p = common.ap('abc');
+  var p = common.ap('abc'),
+      a;
   assert.ok(
     p.enter('rule', 0, function() {
       var res = (this.enter('rule', 1, function() {
@@ -99,10 +100,10 @@ exports['propagated intermediate'] = function(test) {
       }) || this.enter('rule', 3, function() {
         return this.match('a') && this.match('b');
       })) &&
-      this.set('a') &&
+      this.get(function(_) {a=_}) &&
       this.match('c');
 
-      assert.equal(this.get('a'), 'ab');
+      assert.equal(a, 'ab');
 
       return res;
     })
