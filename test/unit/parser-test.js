@@ -390,6 +390,25 @@ var units = [
     ]
   },
   {
+    hint: 'grammar with host language arg of rule and named match',
+    src: 'ometa name { rule { x = y * x + fn(1,2,3); } :a }',
+    dst: [ 'topLevel',
+      [ [
+        'grammar', 'name', null,
+        [[
+            'rule', 'rule',
+            [
+              [
+                'body',
+                common.expressionify('x = y * x + fn(1,2,3); ')
+              ],
+              [ 'arg', [ 'match', null, 'anything' ], 'a' ]
+            ]
+        ]]
+      ] ]
+    ]
+  },
+  {
     hint: 'grammar with host language argument of rule',
     src: 'ometa name { rule another(1 + 2, [1,2,3].join(""),3):k -> k }',
     dst: [ 'topLevel', [ [
