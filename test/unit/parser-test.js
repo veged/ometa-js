@@ -424,7 +424,21 @@ var units = [
     hint: 'bs-ometa-compiler',
     src: common.loadFile('bs-ometa-compiler'),
     dst: false
-  }
+  },
+  {
+    hint: 'grammar with lookahead and a named match',
+    src: 'ometa name { rule &a :b }',
+    dst: [ 'topLevel',
+      [ [ 'grammar',
+        'name',
+        null,
+        [ [ 'rule',
+          'rule',
+          [ [ 'look-ahead', [ 'match', null, 'a' ] ],
+            [ 'arg', [ 'match', null, 'anything' ], 'b' ] ] ] ]
+      ] ]
+    ]
+  },
 ];
 
 units.forEach(function(unit, i) {
