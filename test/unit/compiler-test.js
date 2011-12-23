@@ -235,10 +235,9 @@ exports['grammar with rule with a lookahead'] = function(test) {
     'require("util").inherits(G,P);' +
     'G.prototype._rule_a = function _rule_a() {' +
       'return true && this.enter("a",0,function() {' +
-        'return true && this.enter("a",1,function() {' +
-          'return true && this.open("lookahead") && this.rule("b") && ' +
-          'this.close("lookahead")' +
-        '}) && this.get(function(_) {c=_})' +
+        'return true && this.open("lookahead") && this.rule("b") && ' +
+        'this.close("lookahead") && ' +
+        'this.rule("anything") && this.get(function(_) {c=_})' +
       '})' +
     '};'
   );
