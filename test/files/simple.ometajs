@@ -1,3 +1,0 @@
-ometa Simple {
-  top = [#simple '123'] -> 'ok'
-}

@@ -1,0 +1,6 @@
+ometa LeftRecursion {
+  number = <digit+>,
+  expr = expr:a "+" number:b -> ['+', a, b]
+       | expr:a "-" number:b -> ['-', a, b]
+       | number:a -> a
+}
