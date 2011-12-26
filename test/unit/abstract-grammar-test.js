@@ -92,11 +92,15 @@ exports['fromTo rule'] = function(test) {
   assert.ok(
     g.cache('rule', function() {
       return this.match('a') &&
-             this.simulate([
-               function() { return '/*' },
-               function() { return '*/' }
-             ], function() {
-               return this.rule('fromTo');
+             this.atomic(function() {
+               return this.simulate([
+                 function() { return '/*' },
+                 function() { return '*/' }
+               ], function() {
+                 return this.rule('fromTo');
+               })
+             }) && this.store(function(v) {
+               assert.equal(v, '/* xyz */');
              }) && this.match('b');
     })
   );
