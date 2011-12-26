@@ -18,6 +18,7 @@ exports['atomic and choices'] = function(test) {
   }) || p.atomic(function() {
     return this.match('1') && this.match('2') && this.match('3');
   }));
+  assert.equal(p.intermediate, '123');
 
   test.done();
 };
