@@ -107,3 +107,19 @@ exports['fromTo rule'] = function(test) {
 
   test.done();
 };
+
+exports['seq rule'] = function(test) {
+  var g = common.ag('abcd');
+
+  assert.ok(
+    g.cache('rule', function() {
+      return this.match('a') &&
+             this.rule('seq', [function() { return 'bcd' }]) &&
+             this.store(function(v) {
+               assert.equal(v, 'bcd');
+             });
+    })
+  );
+
+  test.done();
+};
