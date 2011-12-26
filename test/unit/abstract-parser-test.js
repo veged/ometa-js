@@ -49,3 +49,21 @@ exports['nested lists'] = function(test) {
 
   test.done();
 };
+
+exports['nested simulates and grouping'] = function(test) {
+  assert.ok(common.ap('3').atomic(function() {
+    return this.atomic(function() {
+      return this.simulate([
+        function() { return '2' }
+      ], function() {
+        return this.simulate([
+          function() { return '1' }
+        ], function() {
+          return this.match('1') && this.match('2') && this.match('3');
+        });
+      });
+    })
+  }));
+
+  test.done();
+};
