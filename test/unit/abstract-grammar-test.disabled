@@ -5,7 +5,7 @@ exports['`any`: number in string'] = function(test) {
   function check(source, value) {
     var g = common.ag(source);
 
-    assert.ok(g.enter('rule', 0, function() {
+    assert.ok(g.cache('rule', function() {
       return this.any(function() {
         return this.enter('rule', 1, function() {
           return this.range('0', '9')
