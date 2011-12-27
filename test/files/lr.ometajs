@@ -1,5 +1,6 @@
 ometa LeftRecursion {
-  number = <digit+>,
+  number = <digit+ (('e' | 'E') ('-' | '+')? digit+)?>:f -> [#number, parseFloat(f)]
+         | <digit+ ('.' digit+)?>:f                      -> [#number, parseFloat(f)],
   expr = expr:a "+" number:b -> ['+', a, b]
        | expr:a "-" number:b -> ['-', a, b]
        | number:a -> a,
