@@ -2,5 +2,7 @@ ometa LeftRecursion {
   number = <digit+>,
   expr = expr:a "+" number:b -> ['+', a, b]
        | expr:a "-" number:b -> ['-', a, b]
-       | number:a -> a
+       | number:a -> a,
+  exprs = exprs:a "," expr:b -> [',', a, b]
+        | expr:b -> b
 }
