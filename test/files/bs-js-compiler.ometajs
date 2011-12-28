@@ -27,7 +27,7 @@ ometa BSJSParser {
                  | '.'   | '!'                                                   ):s -> [s, s],
   tok          = spaces (name | keyword | number | str | special),
   toks         = token*:ts spaces end                                                -> ts,
-  token :tt    = tok:t ?(t[0] == tt)                                                 -> t[1],
+  token :tt    = tok:t ?(t[0] === tt)                                                -> t[1],
   spacesNoNl   = (~'\n' space)*,
 
   expr = commaExpr,
@@ -265,8 +265,8 @@ ometa BSJSTranslator {
   forIn    trans:x trans:arr curlyTrans:body            -> ('for(' + x + ' in ' + arr + ')' + body),
   begin    trans:x end                                  -> x,
   begin    (trans:x
-              ( (?(x[x.length - 1] == '}') | end) -> x
-              | empty                             -> (x  + ';')
+              ( (?(x[x.length - 1] === '}') | end) -> x
+              | empty                              -> (x  + ';')
               )
            )*:xs                                        -> ('{' + xs.join('') + '}'),
   func     :args curlyTrans:body                        -> ('(function (' + args.join(',') + ')' + body + ')'),
