@@ -92,10 +92,10 @@ suite('AbstractGrammar class', function() {
 
       assert.ok(
         g.cache('g', 'rule', function() {
-          return this.simulate([function() { return 'token1' }], function() {
+          return this.simulate(['token1'], function() {
             return this.rule('token');
           }) &&
-          this.simulate([function() { return 'token2' }], function() {
+          this.simulate(['token2'], function() {
             return this.rule('token');
           })
         })
@@ -111,10 +111,7 @@ suite('AbstractGrammar class', function() {
         g.cache('g', 'rule', function() {
           return this.match('a') &&
                  this.atomic(function() {
-                   return this.simulate([
-                     function() { return '/*' },
-                     function() { return '*/' }
-                   ], function() {
+                   return this.simulate(['/*', '*/'], function() {
                      return this.rule('fromTo');
                    })
                  }) && this.store(function(v) {
@@ -132,7 +129,7 @@ suite('AbstractGrammar class', function() {
       assert.ok(
         g.cache('g', 'rule', function() {
           return this.match('a') &&
-                 this.rule('seq', [function() { return 'bcd' }]) &&
+                 this.rule('seq', ['bcd']) &&
                  this.store(function(v) {
                    assert.equal(v, 'bcd');
                  });
