@@ -25,7 +25,7 @@
     "uglify-js": "1.2.x"
   },
   "devDependencies": {
-    "nodeunit": "0.6.x"
+    "mocha": "0.7.x"
   },
   "bin": {
     "ometajs2js": "./bin/ometajs2js"

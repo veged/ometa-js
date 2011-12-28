@@ -21,7 +21,7 @@ swap-parsers:
 	@cat $@ >> lib/ometajs/ometa/parsers.js.tmp
 
 test:
-	nodeunit test/unit/*-test.js
+	mocha --ui tdd --growl --reporter spec test/unit/*-test.js
 
 docs:
 	docco lib/ometajs/*.js
