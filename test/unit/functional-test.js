@@ -6,7 +6,6 @@ suite('Ometajs module', function() {
     var i = new grmr(src);
 
     assert.ok(i.rule(rule));
-    console.log(i.intermediate);
     if (dst) assert.deepEqual(i.intermediate, dst);
   };
 
