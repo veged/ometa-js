@@ -61,6 +61,7 @@ ometa BSJSParser {
                            | "<"          addExpr:y                                  -> [#binop, "<",          x, y]
                            | "<="         addExpr:y                                  -> [#binop, "<=",         x, y]
                            | "instanceof" addExpr:y                                  -> [#binop, "instanceof", x, y]
+                           | "in"         addExpr:y                                  -> [#binop, "in",         x, y]
                            )
                | addExpr,
   addExpr      = addExpr:x "+" mulExpr:y                                             -> [#binop, "+",          x, y]
@@ -99,6 +100,7 @@ ometa BSJSParser {
                | "string":s                                                          -> [#string, s]
                | "function" funcRest
                | "new" "name":n "(" listOf(#asgnExpr, ','):as ")"                    -> [#new, n].concat(as)
+               | "new" "name":n                                                      -> [#new, n]
                | "[" listOf(#asgnExpr, ','):es "]"                                   -> [#arr].concat(es)
                | json
                | re,
