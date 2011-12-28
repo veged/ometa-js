@@ -61,12 +61,8 @@ suite('AbstractParser class', function() {
     test('should match', function() {
       assert.ok(common.ap('3').atomic(function() {
         return this.atomic(function() {
-          return this.simulate([
-            function() { return '2' }
-          ], function() {
-            return this.simulate([
-              function() { return '1' }
-            ], function() {
+          return this.simulate(['2'], function() {
+            return this.simulate(['1'], function() {
               return this.match('1') && this.match('2') && this.match('3');
             });
           });
