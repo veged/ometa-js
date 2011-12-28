@@ -403,7 +403,7 @@ var units = [
       null,
       [ [ 'rule',
         'rule',
-        [ [ 'look-ahead', [ 'match', null, 'a' ] ],
+        [ [ 'lookahead', [ 'match', null, 'a' ] ],
           [ 'arg', [ 'match', null, 'anything' ], 'b' ] ] ] ]
     ] ]
   },
