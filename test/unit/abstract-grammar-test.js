@@ -16,9 +16,9 @@ exports['`any`: number in string'] = function(test) {
     assert.deepEqual(g.intermediate, value);
   };
 
-  check('123a', '123');
-  check('1', '1');
-  check('abc', '');
+  check('123a', ['1', '2', '3']);
+  check('1', ['1']);
+  check('abc', []);
 
   test.done();
 };
@@ -42,8 +42,8 @@ exports['`many` : number in string'] = function(test) {
     }
   };
 
-  check('123a', '123');
-  check('1', '1');
+  check('123a', ['1', '2', '3']);
+  check('1', ['1']);
   check('abc', null, true);
 
   test.done();
@@ -64,7 +64,7 @@ exports['`optional`: $ in string'] = function(test) {
   };
 
   check('$a', '$');
-  check('a', '');
+  check('a', undefined);
 
   test.done();
 };
