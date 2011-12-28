@@ -1,5 +1,6 @@
 var ometajs = require('../../lib/ometajs'),
     fs = require('fs'),
+    path = require('path'),
     assert = require('assert'),
     uglify = require('uglify-js');
 
@@ -9,7 +10,7 @@ exports.ometajs = ometajs;
 
 exports.loadFile = function loadFile(name) {
   return fs.readFileSync(
-    __dirname + '/../files/' + name + '.ometajs'
+    __dirname + '/../files/' + name + (path.extname(name) ? '' : '.ometajs')
   ).toString()
 };
 

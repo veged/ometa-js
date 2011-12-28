@@ -6,7 +6,8 @@ suite('Ometajs module', function() {
     var i = new grmr(src);
 
     assert.ok(i.rule(rule));
-    assert.deepEqual(i.intermediate, dst);
+    console.log(i.intermediate);
+    if (dst) assert.deepEqual(i.intermediate, dst);
   };
 
   suite('given a simple left recursion grammar', function() {
@@ -30,7 +31,14 @@ suite('Ometajs module', function() {
     var grmr = common.require('bs-js-compiler').BSJSParser;
 
     function js(code, ast) {
-      test('`'+ code + '`', function() {
+      var name;
+      if (code.length > 50) {
+        name = code.slice(0, 47) + '...';
+      } else {
+        name = code;
+      }
+
+      test('`'+ name + '`', function() {
         unit(grmr, 'topLevel', code, ast);
       });
     }
@@ -59,6 +67,8 @@ suite('Ometajs module', function() {
          ['get', 'undefined'],
          ['binop', '+', ['string', '123'], ['string', '456']]
       ]);
+
+      // Disabled: js(common.loadFile('backbone.js'));
     });
   });
 });
