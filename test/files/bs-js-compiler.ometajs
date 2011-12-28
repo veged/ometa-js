@@ -61,7 +61,6 @@ ometa BSJSParser {
                            | "<"          addExpr:y                                  -> [#binop, "<",          x, y]
                            | "<="         addExpr:y                                  -> [#binop, "<=",         x, y]
                            | "instanceof" addExpr:y                                  -> [#binop, "instanceof", x, y]
-                           | "in"         addExpr:y                                  -> [#binop, "in",         x, y]
                            )
                | addExpr,
   addExpr      = addExpr:x "+" mulExpr:y                                             -> [#binop, "+",          x, y]
