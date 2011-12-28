@@ -67,8 +67,6 @@ suite('Ometajs module', function() {
          ['get', 'undefined'],
          ['binop', '+', ['string', '123'], ['string', '456']]
       ]);
-
-      // Disabled: js(common.loadFile('backbone.js'));
     });
   });
 });
