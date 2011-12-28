@@ -114,9 +114,8 @@ suite('AbstractGrammar class', function() {
                    return this.simulate(['/*', '*/'], function() {
                      return this.rule('fromTo');
                    })
-                 }) && this.store(function(v) {
-                   assert.equal(v, '/* xyz */');
-                 }) && this.match('b');
+                 }) && (assert.equal(this.intermediate, '/* xyz */'), true) &&
+                 this.match('b');
         })
       );
     });
@@ -130,9 +129,7 @@ suite('AbstractGrammar class', function() {
         g.cache('g', 'rule', function() {
           return this.match('a') &&
                  this.rule('seq', ['bcd']) &&
-                 this.store(function(v) {
-                   assert.equal(v, 'bcd');
-                 });
+                 (assert.equal(this.intermediate, 'bcd'), true)
         })
       );
     });
