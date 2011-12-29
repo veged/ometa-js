@@ -92,12 +92,8 @@ suite('AbstractGrammar class', function() {
 
       assert.ok(
         g.cache('g', 'rule', function() {
-          return this.simulate(['token1'], function() {
-            return this.rule('_rule_token');
-          }) &&
-          this.simulate(['token2'], function() {
-            return this.rule('_rule_token');
-          })
+          return this.rule('_rule_token', ['token1']) &&
+                 this.rule('_rule_token', ['token2']);
         })
       );
     });
