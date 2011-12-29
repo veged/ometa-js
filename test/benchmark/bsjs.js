@@ -9,5 +9,5 @@ var grmr = common.require('bs-js-compiler').BSJSParser,
     instance = new grmr(source);
 
 console.time('parse');
-instance.rule('topLevel');
+instance.rule('_rule_topLevel');
 console.timeEnd('parse');
