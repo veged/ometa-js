@@ -8,7 +8,7 @@ suite('AbstractGrammar class', function() {
 
       assert.ok(g.cache('g', 'rule', function() {
         return this.any(function() {
-          return this.match(function(v) {
+          return this.fnMatch(function(v) {
             return '0' <= v && v <= '9';
           });
         });
@@ -35,7 +35,7 @@ suite('AbstractGrammar class', function() {
       var g = common.ag(source),
           start = g.cache('g', 'rule', function() {
             return this.many(function() {
-              return this.match(function(v) {
+              return this.fnMatch(function(v) {
                 return '0' <= v && v <= '9';
               });
             });
