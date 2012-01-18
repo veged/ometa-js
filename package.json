@@ -21,7 +21,7 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "coa": "0.3.x",
+    "coa": "0.3.1",
     "q": "0.7.x",
     "uglify-js": "1.1.x"
   },
