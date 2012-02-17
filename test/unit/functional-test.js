@@ -6,7 +6,7 @@ suite('Ometajs module', function() {
     var i = new grmr(src);
 
     assert.ok(i.rule('_rule_' + rule));
-    if (dst) assert.deepEqual(i.intermediate, dst);
+    if (dst) assert.deepEqual(i.getIntermediate(), dst);
   };
 
   suite('given a simple left recursion grammar', function() {
