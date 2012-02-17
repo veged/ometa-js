@@ -26,7 +26,7 @@ suite('AbstractParser class', function() {
     });
 
     test('should choose `123` as intermediate value', function() {
-      assert.equal(p.intermediate, '123');
+      assert.equal(p.getIntermediate(), '123');
     });
   });
 

@@ -14,7 +14,7 @@ suite('AbstractGrammar class', function() {
         });
       }));
 
-      assert.deepEqual(g.intermediate, value);
+      assert.deepEqual(g.getIntermediate(), value);
     };
 
     test('on `123a` string', function() {
@@ -45,7 +45,7 @@ suite('AbstractGrammar class', function() {
         assert.ok(!start);
       } else {
         assert.ok(start);
-        assert.deepEqual(g.intermediate, value);
+        assert.deepEqual(g.getIntermediate(), value);
       }
     };
 
@@ -74,7 +74,7 @@ suite('AbstractGrammar class', function() {
           })
         })
       );
-      assert.deepEqual(g.intermediate, value);
+      assert.deepEqual(g.getIntermediate(), value);
     };
 
     test('work on `$a` string', function() {
@@ -110,7 +110,7 @@ suite('AbstractGrammar class', function() {
                    return this.simulate(['/*', '*/'], function() {
                      return this.rule('_rule_fromTo');
                    })
-                 }) && (assert.equal(this.intermediate, '/* xyz */'), true) &&
+                 }) && (assert.equal(this.getIntermediate(), '/* xyz */'), true) &&
                  this.match('b');
         })
       );
@@ -125,7 +125,7 @@ suite('AbstractGrammar class', function() {
         g.cache('g', 'rule', function() {
           return this.match('a') &&
                  this.rule('_rule_seq', ['bcd']) &&
-                 (assert.equal(this.intermediate, 'bcd'), true)
+                 (assert.equal(this.getIntermediate(), 'bcd'), true)
         })
       );
     });
