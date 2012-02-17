@@ -92,8 +92,8 @@ suite('AbstractGrammar class', function() {
 
       assert.ok(
         g._cache('g', 'rule', function() {
-          return this._rule('token', ['token1']) &&
-                 this._rule('token', ['token2']);
+          return this._rule('token', false, ['token1']) &&
+                 this._rule('token', false, ['token2']);
         })
       );
     });
@@ -124,7 +124,7 @@ suite('AbstractGrammar class', function() {
       assert.ok(
         g._cache('g', 'rule', function() {
           return this._match('a') &&
-                 this._rule('seq', ['bcd']) &&
+                 this._rule('seq', false, ['bcd']) &&
                  (assert.equal(this._getIntermediate(), 'bcd'), true)
         })
       );
