@@ -6,15 +6,15 @@ suite('AbstractGrammar class', function() {
     function check(source, value) {
       var g = common.ag(source);
 
-      assert.ok(g.cache('g', 'rule', function() {
-        return this.any(function() {
-          return this.fnMatch(function(v) {
+      assert.ok(g._cache('g', 'rule', function() {
+        return this._any(function() {
+          return this._fnMatch(function(v) {
             return '0' <= v && v <= '9';
           });
         });
       }));
 
-      assert.deepEqual(g.getIntermediate(), value);
+      assert.deepEqual(g._getIntermediate(), value);
     };
 
     test('on `123a` string', function() {
@@ -33,9 +33,9 @@ suite('AbstractGrammar class', function() {
   suite('.many() method given digit as body should', function() {
     function check(source, value, fail) {
       var g = common.ag(source),
-          start = g.cache('g', 'rule', function() {
-            return this.many(function() {
-              return this.fnMatch(function(v) {
+          start = g._cache('g', 'rule', function() {
+            return this._many(function() {
+              return this._fnMatch(function(v) {
                 return '0' <= v && v <= '9';
               });
             });
@@ -45,7 +45,7 @@ suite('AbstractGrammar class', function() {
         assert.ok(!start);
       } else {
         assert.ok(start);
-        assert.deepEqual(g.getIntermediate(), value);
+        assert.deepEqual(g._getIntermediate(), value);
       }
     };
 
@@ -68,13 +68,13 @@ suite('AbstractGrammar class', function() {
       var g = common.ag(source);
 
       assert.ok(
-        g.cache('g', 'rule', function() {
-          return this.optional(function() {
-            return this.match('$');
+        g._cache('g', 'rule', function() {
+          return this._optional(function() {
+            return this._match('$');
           })
         })
       );
-      assert.deepEqual(g.getIntermediate(), value);
+      assert.deepEqual(g._getIntermediate(), value);
     };
 
     test('work on `$a` string', function() {
@@ -91,9 +91,9 @@ suite('AbstractGrammar class', function() {
       var g = common.ag('token1     token2');
 
       assert.ok(
-        g.cache('g', 'rule', function() {
-          return this.rule('_rule_token', ['token1']) &&
-                 this.rule('_rule_token', ['token2']);
+        g._cache('g', 'rule', function() {
+          return this._rule('token', ['token1']) &&
+                 this._rule('token', ['token2']);
         })
       );
     });
@@ -104,14 +104,14 @@ suite('AbstractGrammar class', function() {
       var g = common.ag('a/* xyz */b');
 
       assert.ok(
-        g.cache('g', 'rule', function() {
-          return this.match('a') &&
-                 this.atomic(function() {
-                   return this.simulate(['/*', '*/'], function() {
-                     return this.rule('_rule_fromTo');
+        g._cache('g', 'rule', function() {
+          return this._match('a') &&
+                 this._atomic(function() {
+                   return this._simulate(['/*', '*/'], function() {
+                     return this._rule('fromTo');
                    })
-                 }) && (assert.equal(this.getIntermediate(), '/* xyz */'), true) &&
-                 this.match('b');
+                 }) && (assert.equal(this._getIntermediate(), '/* xyz */'), true) &&
+                 this._match('b');
         })
       );
     });
@@ -122,10 +122,10 @@ suite('AbstractGrammar class', function() {
       var g = common.ag('abcd');
 
       assert.ok(
-        g.cache('g', 'rule', function() {
-          return this.match('a') &&
-                 this.rule('_rule_seq', ['bcd']) &&
-                 (assert.equal(this.getIntermediate(), 'bcd'), true)
+        g._cache('g', 'rule', function() {
+          return this._match('a') &&
+                 this._rule('seq', ['bcd']) &&
+                 (assert.equal(this._getIntermediate(), 'bcd'), true)
         })
       );
     });
