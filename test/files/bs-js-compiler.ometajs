@@ -32,14 +32,14 @@ ometa BSJSParser {
   expr = commaExpr,
   commaExpr = commaExpr:e1 "," asgnExpr:e2 -> [#binop, ",", e1, e2]
             | asgnExpr,
-  asgnExpr     = condExpr:e ( "="   asgnExpr:rhs                                     -> [#set,  e, rhs]
-                            | "+="  asgnExpr:rhs                                     -> [#mset, e, "+",  rhs]
-                            | "-="  asgnExpr:rhs                                     -> [#mset, e, "-",  rhs]
-                            | "*="  asgnExpr:rhs                                     -> [#mset, e, "*",  rhs]
-                            | "/="  asgnExpr:rhs                                     -> [#mset, e, "/",  rhs]
-                            | "%="  asgnExpr:rhs                                     -> [#mset, e, "%",  rhs]
-                            | "&&=" asgnExpr:rhs                                     -> [#mset, e, "&&", rhs]
-                            | "||=" asgnExpr:rhs                                     -> [#mset, e, "||", rhs]
+  asgnExpr     = condExpr:e ( "="   @asgnExpr:rhs                                     -> [#set,  e, rhs]
+                            | "+="  @asgnExpr:rhs                                     -> [#mset, e, "+",  rhs]
+                            | "-="  @asgnExpr:rhs                                     -> [#mset, e, "-",  rhs]
+                            | "*="  @asgnExpr:rhs                                     -> [#mset, e, "*",  rhs]
+                            | "/="  @asgnExpr:rhs                                     -> [#mset, e, "/",  rhs]
+                            | "%="  @asgnExpr:rhs                                     -> [#mset, e, "%",  rhs]
+                            | "&&=" @asgnExpr:rhs                                     -> [#mset, e, "&&", rhs]
+                            | "||=" @asgnExpr:rhs                                     -> [#mset, e, "||", rhs]
                             | empty                                                  -> e
                             ),
   condExpr     = orExpr:e ( "?"   condExpr:t   ":" condExpr:f                        -> [#condExpr, e, t, f]
@@ -100,22 +100,22 @@ ometa BSJSParser {
                | "new" "name":n "(" listOf(#asgnExpr, ','):as ")"                    -> [#new, n].concat(as)
                | "new" "name":n                                                      -> [#new, n]
                | "[" listOf(#asgnExpr, ','):es "]"                                   -> [#arr].concat(es)
-               | json
-               | re,
-  json         = "{" listOf(#jsonBinding, ','):bs "}"                                -> [#json].concat(bs),
+               | @json
+               | @re,
+  json         = "{" @listOf(#jsonBinding, ','):bs "}"                               -> [#json].concat(bs),
   jsonBinding  = jsonPropName:n ":" asgnExpr:v                                       -> [#binding, n, v],
   jsonPropName = "name" | "number" | "string" | spaces iName:n isKeyword(n)          -> n,
-  re           = spaces <'/' reBody '/' reFlag*>:x                                   -> [#regExp, x],
-  reBody       = re1stChar reChar*,
-  re1stChar    = ~('*' || '\\' || '/' || '[') reNonTerm
-               | escapeChar
-               | reClass,
-  reChar       = re1stChar | '*',
-  reNonTerm    = ~('\n' || '\r') char,
-  reClass      = '[' reClassChar* ']',
+  re           = @spaces <'/' @reBody '/' @reFlag*>:x                                   -> [#regExp, x],
+  reBody       = @re1stChar reChar*,
+  re1stChar    = ~('*' || '\\' || '/' || '[') @reNonTerm
+               | @escapeChar
+               | @reClass,
+  reChar       = @re1stChar | '*',
+  reNonTerm    = ~('\n' || '\r') @char,
+  reClass      = '[' @reClassChar* ']',
   reClassChar  = ~('[' || ']') reChar,
-  reFlag       = nameFirst,
-  formal       = spaces "name",
+  reFlag       = @nameFirst,
+  formal       = @spaces "name",
   funcRest     = "(" listOf(#formal, ','):fs ")" "{" srcElems:body "}"               -> [#func, fs, body],
   sc           = spacesNoNl ('\n' | &'}' | end)
                | ";",
@@ -123,12 +123,12 @@ ometa BSJSParser {
                | "name":n                                                            -> [n],
   block        = "{" srcElems:ss "}"                                                 -> ss,
   vars         = "var" listOf(#binding, ','):bs                                      -> [#var].concat(bs),
-  stmt         = block
+  stmt         = @block
                | vars:bs sc                                                          -> bs
-               | "if" "(" expr:c ")" stmt:t ( "else" stmt
+               | "if" "(" expr:c ")" stmt:t ( "else" @stmt
                                             | empty -> [#get, 'undefined'] ):f       -> [#if, c, t, f]
-               | "while" "(" expr:c ")" stmt:s                                       -> [#while,   c, s]
-               | "do" stmt:s "while" "(" expr:c ")" sc                               -> [#doWhile, s, c]
+               | "while" "(" expr:c ")" @stmt:s                                       -> [#while,   c, s]
+               | "do" @stmt:s "while" "(" expr:c ")" sc                               -> [#doWhile, s, c]
                | "for" "(" ( vars
                            | expr
                            | empty -> [#get, 'undefined'] ):i
@@ -136,11 +136,11 @@ ometa BSJSParser {
                            | empty -> [#get, 'true']      ):c
                        ";" ( expr
                            | empty -> [#get, 'undefined'] ):u
-                       ")" stmt:s                                                    -> [#for, i, c, u, s]
+                       ")" @stmt:s                                                    -> [#for, i, c, u, s]
                | "for" "(" ( "var" binding:b -> [#var, b]
                            | expr                                             ):v
                       "in" asgnExpr:e
-                       ")" stmt:s                                                    -> [#forIn, v, e, s]
+                       ")" @stmt:s                                                    -> [#forIn, v, e, s]
                | "switch" "(" expr:e ")" "{"
                    ( "case" asgnExpr:c ":" srcElems:cs -> [#case, c, cs]
                    | "default"     ":" srcElems:cs -> [#default, cs] )*:cs
@@ -148,16 +148,16 @@ ometa BSJSParser {
                | "break" sc                                                          -> [#break]
                | "continue" sc                                                       -> [#continue]
                | "throw" spacesNoNl asgnExpr:e sc                                    -> [#throw, e]
-               | "try" block:t "catch" "(" "name":e ")" block:c
-                             ( "finally" block
+               | "try" @block:t "catch" "(" "name":e ")" @block:c
+                             ( "finally" @block
                              | empty -> [#get, 'undefined'] ):f                      -> [#try, t, e, c, f]
                | "return" ( expr
                           | empty -> [#get, 'undefined'] ):e sc                      -> [#return, e]
-               | "with" "(" expr:x ")" stmt:s                                        -> [#with, x, s]
+               | "with" "(" expr:x ")" @stmt:s                                        -> [#with, x, s]
                | expr:e sc                                                           -> e
                | ";"                                                                 -> [#get, "undefined"],
-  srcElem      = "function" "name":n funcRest:f                                      -> [#var, [n, f]]
-               | stmt,
+  srcElem      = "function" "name":n @funcRest:f                                      -> [#var, [n, f]]
+               | @stmt,
   srcElems     = @srcElem*:ss                                                        -> [#begin].concat(ss),
 
   topLevel     = @srcElems:r @spaces end                                               -> r
