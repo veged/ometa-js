@@ -6,11 +6,11 @@ suite('AbstractParser class', function() {
     var p = common.ap('123');
 
     test('should match `1` `2` `3` sequence', function() {
-      assert.ok(p.match('1') && p.match('2') && p.match('3'));
+      assert.ok(p._match('1') && p._match('2') && p._match('3'));
     });
 
     test('and then fail on `1`', function() {
-      assert.ok(!(p.match('1')));
+      assert.ok(!(p._match('1')));
     });
   });
 
@@ -18,15 +18,15 @@ suite('AbstractParser class', function() {
     var p = common.ap('123');
 
     test('should not fail', function() {
-      assert.ok(p.atomic(function() {
-        return this.match('1') && this.match('2') && this.match('4');
-      }) || p.atomic(function() {
-        return this.match('1') && this.match('2') && this.match('3');
+      assert.ok(p._atomic(function() {
+        return this._match('1') && this._match('2') && this._match('4');
+      }) || p._atomic(function() {
+        return this._match('1') && this._match('2') && this._match('3');
       }));
     });
 
     test('should choose `123` as intermediate value', function() {
-      assert.equal(p.getIntermediate(), '123');
+      assert.equal(p._getIntermediate(), '123');
     });
   });
 
@@ -34,10 +34,10 @@ suite('AbstractParser class', function() {
     var p = common.ap('123');
 
     test('should match', function() {
-      assert.ok(p.atomic(function() {
-        return this.match('1');
-      }, true) || p.atomic(function() {
-        return this.match('1') && this.match('2') && this.match('3');
+      assert.ok(p._atomic(function() {
+        return this._match('1');
+      }, true) || p._atomic(function() {
+        return this._match('1') && this._match('2') && this._match('3');
       }));
     });
   });
@@ -49,21 +49,21 @@ suite('AbstractParser class', function() {
         '2',
         ['3', '4'],
         '5'
-      ]).atomic(function() {
-        return this.match('1') && this.match('2') && this.list(function() {
-          return this.match('3') && this.match('4');
-        }) && this.match('5')
+      ])._atomic(function() {
+        return this._match('1') && this._match('2') && this._list(function() {
+          return this._match('3') && this._match('4');
+        }) && this._match('5')
       }));
     });
   });
 
   suite('given `3` against simulates and groups matches', function() {
     test('should match', function() {
-      assert.ok(common.ap('3').atomic(function() {
-        return this.atomic(function() {
-          return this.simulate(['2'], function() {
-            return this.simulate(['1'], function() {
-              return this.match('1') && this.match('2') && this.match('3');
+      assert.ok(common.ap('3')._atomic(function() {
+        return this._atomic(function() {
+          return this._simulate(['2'], function() {
+            return this._simulate(['1'], function() {
+              return this._match('1') && this._match('2') && this._match('3');
             });
           });
         })

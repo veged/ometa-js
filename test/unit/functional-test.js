@@ -5,8 +5,8 @@ suite('Ometajs module', function() {
   function unit(grmr, rule, src, dst) {
     var i = new grmr(src);
 
-    assert.ok(i.rule('_rule_' + rule));
-    if (dst) assert.deepEqual(i.getIntermediate(), dst);
+    assert.ok(i._rule(rule));
+    if (dst) assert.deepEqual(i._getIntermediate(), dst);
   };
 
   suite('given a simple left recursion grammar', function() {
