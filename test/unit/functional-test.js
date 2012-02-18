@@ -44,9 +44,9 @@ suite('Ometajs module', function() {
 
     suite('should match', function() {
       js('var x', ['begin', ['var', ['x']]]);
-      js('var x = 1', ['begin', ['var', ['x', ['number', 1]]]]);
-      js('var x = 1, y, z;', ['begin',
-         ['var', ['x', ['number', 1]], ['y'], ['z']]
+      js('var x = 1.2', ['begin', ['var', ['x', ['number', 1.2]]]]);
+      js('var x = 1e2, y, z;', ['begin',
+         ['var', ['x', ['number', 100]], ['y'], ['z']]
       ]);
 
       js('function a() {}', ['begin',
