@@ -1,7 +1,7 @@
 var common = require('../fixtures/common'),
     assert = require('assert');
 
-var n = 1000,
+var n = 500,
     source  = new Array(n).join(
       'if (x) {' +
       '   return function() {' +
@@ -15,9 +15,8 @@ var n = 1000,
       '};');
 console.log('Source length: %d', source.length);
 
-var grmr = common.require('bs-js-compiler').BSJSParser,
-    instance = new grmr(source);
+var grmr = common.require('bs-js-compiler').BSJSParser;
 
 console.time('parse');
-instance._rule('topLevel');
+grmr.matchAll(source, 'topLevel');
 console.timeEnd('parse');
