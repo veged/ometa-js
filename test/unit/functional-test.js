@@ -48,6 +48,7 @@ suite('Ometajs module', function() {
       js('var x = 1e2, y, z;', ['begin',
          ['var', ['x', ['number', 100]], ['y'], ['z']]
       ]);
+      js('x.y', [ 'begin', [ 'getp', [ 'string', 'y' ], [ 'get' , 'x' ] ] ]);
 
       js('function a() {}', ['begin',
          ['var', ['a', ['func', [], ['begin']]]]
