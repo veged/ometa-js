@@ -34,6 +34,6 @@ require('coa').Cmd()
         .def('ometajs')
         .end()
     .act(function(options) {
-      return require('../lib/ometajs').run(options);
+      return require('../lib/ometajs').cli.run(options);
     })
     .run();
