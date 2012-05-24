@@ -474,10 +474,6 @@ suite('Ometajs language parser', function() {
     });
 
     suite('real word grammars', function() {
-      test('bs-js-compiler', function() {
-        unit(common.loadFile('bs-js-compiler'), false);
-      });
-
       test('bs-ometa-compiler', function() {
         unit(common.loadFile('bs-ometa-compiler'), false);
       });
