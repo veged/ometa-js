@@ -15,7 +15,7 @@ var n = 500,
       '};');
 console.log('Source length: %d', source.length);
 
-var grmr = common.require('bs-js-compiler').BSJSParser;
+var grmr = common.ometajs.grammars.BSJSParser;
 
 console.time('parse');
 grmr.matchAll(source, 'topLevel');
