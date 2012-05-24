@@ -28,7 +28,7 @@ suite('Ometajs module', function() {
 
   suite('given a javascript grammar\'s', function() {
     suite('parser', function() {
-      var grmr = common.require('bs-js-compiler').BSJSParser;
+      var grmr = common.ometajs.grammars.BSJSParser;
 
       function js(code, ast) {
         var name;
@@ -68,11 +68,13 @@ suite('Ometajs module', function() {
            ['get', 'undefined'],
            ['binop', '+', ['string', '123'], ['string', '456']]
         ]);
+
+        js('/a/', ['begin', ['regExp', '/a/']]);
       });
     });
 
     suite('compiler', function() {
-      var grmr = common.require('bs-js-compiler').BSJSTranslator;
+      var grmr = common.ometajs.grammars.BSJSTranslator;
 
       function unit(name, ast, source) {
         test(name, function() {
