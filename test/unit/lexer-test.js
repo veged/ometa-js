@@ -19,17 +19,18 @@ suite('Ometajs language lexer', function() {
       { type: 'string', value: 'a', offset: 28 },
       { type: 'space', value: ' ', offset: 30 },
       { type: 'punc', value: ']', offset: 31 },
-      { type: 'comment', value: ' 123', offset: 32 },
+      { type: 'space', value: '// 123\n', offset: 32 },
       { type: 'token', value: '123', offset: 39 },
-      { type: 'comment', value: ' \n123\r ', offset: 44 },
+      { type: 'space', value: '/* \n123\r */', offset: 44 },
       { type: 'punc', value: '[', offset: 55 },
       { type: 'string', value: '123', offset: 56 },
       { type: 'space', value: ' ', offset: 60 },
       { type: 'number', value: '123', offset: 61 },
-      { type: 'punc', value: ']', offset: 64 }
+      { type: 'punc', value: ']', offset: 64 },
+      { type: 're', value: '/123abc/', offset: 65 }
     ], common.lexems('abc `abc \'"a""\\\'\' "abc" ' +
                      '{} [#a ]// 123\n"123"' +
-                     '/* \n123\r */[#123 123]'));
+                     '/* \n123\r */[#123 123]/123abc/'));
   });
 
 });
