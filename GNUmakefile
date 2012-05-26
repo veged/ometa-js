@@ -3,7 +3,7 @@ SUFFIX=.ometajs
 all: lib/ometajs/grammars/bsjs.js
 
 lib/ometajs/grammars/%.js: lib/ometajs/grammars/%.ometajs
-	./bin/ometajs2js --root "../../../" -i $< -o $@
+	./bin/ometajs2js -b --root "../../../" -i $< -o $@
 
 test:
 	mocha --ui tdd --growl --reporter spec test/unit/*-test.js
