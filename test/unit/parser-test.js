@@ -229,6 +229,21 @@ suite('Ometajs language parser', function() {
         );
       });
 
+      test('predicate and code', function() {
+        unit(
+          'ometa name { ruleName = ?doAnything() { 1 + 1 } }',
+          [ [
+            'grammar', 'name', null,
+            [ [ 'rule', 'ruleName', [
+              [ 'choice', [
+                [ 'predicate', common.expressionify('doAnything()') ],
+                [ 'body', common.expressionify('{ 1 + 1 }') ]
+              ] ]
+            ] ] ]
+          ] ]
+        );
+      });
+
       test('named invocation', function() {
         unit(
           'ometa name { rule sub:a }',
