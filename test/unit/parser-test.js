@@ -8,7 +8,7 @@ var units = [
 function unit(src, dst, throws) {
   if (throws) {
     assert.throws(function () { common.parse(src) });
-  } else if (unit.dst) {
+  } else if (dst) {
     assert.deepEqual(common.parse(src), dst);
   } else {
     var ast = common.parse(src);
@@ -52,9 +52,9 @@ suite('Ometajs language parser', function() {
         unit(
           'var x = 1;\nometa name {\n};\nconsole.log("123");',
           [
-            [ 'code', uglify('var x = 1;') + '\n'],
+            [ 'code', 'var x = 1;\n'],
             [ 'grammar', 'name', null, [] ],
-            [ 'code', uglify(';\nconsole.log("123");') + '\n']
+            [ 'code', ';\nconsole.log("123");\n']
           ]
         );
       })
@@ -237,9 +237,35 @@ suite('Ometajs language parser', function() {
             [ [ 'rule', 'ruleName', [
               [ 'choice', [
                 [ 'predicate', common.expressionify('doAnything()') ],
-                [ 'body', common.expressionify('{ 1 + 1 }') ]
+                [ 'body', common.expressionify('1 + 1') ]
               ] ]
             ] ] ]
+          ] ]
+        );
+      });
+
+      test('predicate (regr#1)', function() {
+        unit(
+          'ometa name { ' +
+          '  keyword :k = iName:kk isKeyword(kk) ' +
+          '  ?(!k || k == kk) -> [#keyword, kk]' +
+          '}',
+          [ [
+            'grammar',
+            'name',
+            null,
+            [ [ 'rule',
+                'keyword',
+                [ [ 'arg', [ 'match', null, 'anything' ], 'k' ],
+                  [ 'choice',
+                    [ [ 'arg', [ 'match', null, 'iName' ], 'kk' ],
+                      [ 'call', null, 'isKeyword', [ 'kk' ] ],
+                      [ 'predicate', '!k||k==kk' ],
+                      [ 'result', '["keyword",kk]' ]
+                    ]
+                  ]
+                ]
+            ] ]
           ] ]
         );
       });
