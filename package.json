@@ -1,7 +1,7 @@
 {
   "name": "ometajs",
   "description": "A object-oriented language for pattern matching",
-  "version": "2.1.10",
+  "version": "3.0.0",
   "homepage": "http://tinlizzie.org/ometa-js/",
   "author": "Fedor Indutny <fedor@indutny.com> (https://github.com/indutny)",
   "contributors": [
@@ -40,5 +40,6 @@
   ],
   "scripts": {
     "test": "make -B test"
-  }
+  },
+  "optionalDependencies": {}
 }
