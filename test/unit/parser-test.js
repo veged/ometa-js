@@ -138,6 +138,21 @@ suite('Ometajs language parser', function() {
         );
       });
 
+      test('repeating rule', function() {
+        unit(
+          'ometa name { rule true, rule false }',
+          [ [
+            'grammar',
+            'name',
+            null,
+            [
+              [ 'rule', 'rule', [ [ 'bool', true ] ] ],
+              [ 'rule', 'rule', [ [ 'bool', false ] ] ]
+            ]
+          ] ]
+        );
+      });
+
       test('two args (x2)', function() {
         unit(
           'ometa name { rule1 :a :b, rule2 :c :d }',

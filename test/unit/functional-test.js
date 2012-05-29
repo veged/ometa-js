@@ -102,4 +102,16 @@ suite('Ometajs module', function() {
       );
     });
   });
+
+  suite('Various grammars', function() {
+    function unit(name, grmr, rule, source, result) {
+      grmr = common.require(grmr).Grammar;
+
+      test(name, function() {
+        assert.deepEqual(grmr.match(source, rule), result);
+      });
+    }
+
+    unit('grammar with repeating rule', 'rep-rule', 'rule', false, false);
+  });
 });
