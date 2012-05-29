@@ -66,8 +66,8 @@ Also you may `require('*.ometajs')` files directly without compilation.
 ```javascript
 var ometajs = require('ometajs');
 
-var ast = ometajs.BSJSParser.matchAll('var x = 1', 'topLevel'),
-    code = ometajs.BSJSTranslator.matchAll([ast], 'trans');
+var ast = ometajs.grammars.BSJSParser.matchAll('var x = 1', 'topLevel'),
+    code = ometajs.grammars.BSJSTranslator.matchAll([ast], 'trans');
 ```
 Example
 
