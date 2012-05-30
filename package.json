@@ -2,7 +2,7 @@
   "name": "ometajs",
   "description": "A object-oriented language for pattern matching",
   "version": "3.0.0",
-  "homepage": "http://tinlizzie.org/ometa-js/",
+  "homepage": "https://github.com/veged/ometa-js",
   "author": "Fedor Indutny <fedor@indutny.com> (https://github.com/indutny)",
   "contributors": [
     "Sergey Berezhnoy <veged@mail.ru> (http://github.com/veged)"
@@ -20,9 +20,9 @@
     "lib": "./lib"
   },
   "dependencies": {
-    "coa": "0.3.1",
-    "q": "0.7.x",
-    "uglify-js": "1.2.x"
+    "coa": "0.3.x",
+    "q": "0.8.x",
+    "uglify-js": "1.3.x"
   },
   "devDependencies": {
     "mocha": "0.7.x"
