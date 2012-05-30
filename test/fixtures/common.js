@@ -18,3 +18,13 @@ exports.compile = function compile(name) {
 exports.require = function compile(name) {
   return require(__dirname + '/../files/' + name);
 };
+
+exports.lexems = function(code) {
+  var lexer = ometajs.lexer.create(code),
+      lexems = [],
+      lexem;
+
+  while (lexem = lexer.token()) lexems.push(lexem);
+
+  return lexems;
+};
