@@ -19,10 +19,6 @@ function unit(src, dst, throws) {
 
 suite('Ometajs language parser', function() {
   suite('should fail on grammar with', function() {
-    test('only `ometa` keyword', function() {
-      unit('ometa', null, true);
-    });
-
     test('missing closing bracket', function() {
       unit('ometa name {', null, true);
     });
@@ -50,9 +46,9 @@ suite('Ometajs language parser', function() {
 
       test('empty grammar with a host code near it', function() {
         unit(
-          'var x = 1;\nometa name {\n};\nconsole.log("123");',
+          'var ometa = 1;\nometa name {\n};\nconsole.log("123");',
           [
-            [ 'code', 'var x = 1;\n'],
+            [ 'code', 'var ometa = 1;\n'],
             [ 'grammar', 'name', null, [] ],
             [ 'code', ';\nconsole.log("123");\n']
           ]
