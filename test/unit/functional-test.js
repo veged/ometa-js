@@ -26,6 +26,15 @@ suite('Ometajs module', function() {
     });
   });
 
+  suite('given a grammar with local statement', function() {
+    var grmr = common.require('local').Local;
+
+    test('should match input successfully', function() {
+      unit(grmr, 'rule', '+', 1);
+      unit(grmr, 'rule', '-', 0);
+    });
+  });
+
   suite('given a javascript grammar\'s', function() {
     suite('parser', function() {
       var grmr = common.ometajs.grammars.BSJSParser;

@@ -240,6 +240,18 @@ suite('Ometajs language parser', function() {
         );
       });
 
+      test('local', function() {
+        unit(
+          'ometa name { ruleName = %(this.a = 1, this.b = 1) }',
+          [ [
+            'grammar', 'name', null,
+            [ [ 'rule', 'ruleName', [
+              [ 'choice', [ [ 'local', common.expressionify('this.a = 1, this.b = 1') ] ] ]
+            ] ] ]
+          ] ]
+        );
+      });
+
       test('predicate and code', function() {
         unit(
           'ometa name { ruleName = ?doAnything() { 1 + 1 } }',

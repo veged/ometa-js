@@ -60,3 +60,4 @@ exports.ag = function(code) {
 }
 
 exports.expressionify = ometajs.utils.expressionify;
+exports.localify = ometajs.utils.localify;
