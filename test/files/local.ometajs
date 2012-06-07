@@ -1,5 +1,5 @@
 ometa Local {
-  plus %(this.x = 1) = '+' -> this.x,
+  plus %(this.x = 1, this.y = {}) = '+' -> this.x,
   minus = '-' -> 0,
   rule { this.x = 0 } (plus | minus):v -> this.x + v
 }
