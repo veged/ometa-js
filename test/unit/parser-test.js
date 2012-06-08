@@ -355,6 +355,20 @@ suite('Ometajs language parser', function() {
         );
       });
 
+      test('lookahead and predicate match', function() {
+        unit(
+          'ometa name { rule &(a) ?b }',
+          [ [ 'grammar',
+            'name',
+            null,
+            [ [ 'rule',
+              'rule',
+              [ [ 'lookahead', [ 'choice', [ [ 'match', null, 'a' ] ] ] ],
+                [ 'predicate', 'b'] ] ] ]
+          ] ]
+        );
+      });
+
       test('one left arg and two right choices', function() {
         unit(
           'ometa name { rule :a = :b :c -> b | :d :e -> e }',
