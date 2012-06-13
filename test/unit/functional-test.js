@@ -87,6 +87,12 @@ suite('Ometajs module', function() {
              ['binding','b',['number',2]]
            ]
         ]);
+
+        js('var a = b || c\nx', [
+           "begin",
+           ["var", ["a",["binop","||",["get","b"],["get","c"]]]],
+           ["get","x"]
+        ]);
       });
     });
 
