@@ -79,6 +79,14 @@ suite('Ometajs module', function() {
         ]);
 
         js('/a/', ['begin', ['regExp', '/a/']]);
+
+        js('{ a: 1 , b: 2 }', [
+           'begin',
+           [ 'json',
+             ['binding','a',['number',1]],
+             ['binding','b',['number',2]]
+           ]
+        ]);
       });
     });
 
