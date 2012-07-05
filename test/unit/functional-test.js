@@ -5,7 +5,9 @@ suite('Ometajs module', function() {
   function unit(grmr, rule, src, dst) {
     var i = new grmr(src);
 
-    assert.ok(i._rule(rule));
+    if (!i._rule(rule)) {
+      i._getError();
+    }
     if (dst) assert.deepEqual(i._getIntermediate(), dst);
   };
 
@@ -89,9 +91,16 @@ suite('Ometajs module', function() {
         ]);
 
         js('var a = b || c\nx', [
-           "begin",
-           ["var", ["a",["binop","||",["get","b"],["get","c"]]]],
-           ["get","x"]
+           'begin',
+           ['var', ['a',['binop','||',['get','b'],['get','c']]]],
+           ['get','x']
+        ]);
+
+        js('a[b].x().l', ['begin',
+           ['getp',
+             ['string','l'],
+             ['call',['getp',['string','x'],['getp',['get','b'],['get','a']]]]
+           ]
         ]);
       });
     });
