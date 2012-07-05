@@ -1,7 +1,7 @@
 {
   "name": "ometajs",
   "description": "A object-oriented language for pattern matching",
-  "version": "3.0.15",
+  "version": "3.0.16",
   "homepage": "https://github.com/veged/ometa-js",
   "author": "Fedor Indutny <fedor@indutny.com> (https://github.com/indutny)",
   "contributors": [
