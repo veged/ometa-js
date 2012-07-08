@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env node --stack-trace-limit=1024
 var fs = require('fs');
 
 require('coa').Cmd()

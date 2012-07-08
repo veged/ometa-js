@@ -10,8 +10,22 @@ exports.ometajs = ometajs;
 
 exports.loadFile = function loadFile(name) {
   return fs.readFileSync(
-    __dirname + '/../files/' + name + (path.extname(name) ? '' : '.ometajs')
+    path.resolve(
+      __dirname,
+      '../files',
+      name + (path.extname(name) ? '' : '.ometajs')
+    )
   ).toString()
+};
+
+exports.readFile = function readFile(name) {
+  return fs.readFileSync(
+    path.resolve(
+      __dirname,
+      '../files',
+      name
+    )
+  ).toString();
 };
 
 exports.translate = function translate(name, options) {
