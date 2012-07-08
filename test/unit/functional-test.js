@@ -91,7 +91,7 @@ suite('Ometajs module', function() {
            ]]
         ]);
 
-        js('var a = b || c\nx', [
+        js('var a = b || c;x', [
            'begin',
            ['stmt', ['var', ['a',['binop','||',['get','b'],['get','c']]]]],
            ['stmt', ['get','x']]
@@ -134,9 +134,19 @@ suite('Ometajs module', function() {
       unit('undefined', ['get', 'undefined'], 'undefined');
       unit('basic name', ['get', 'a'], 'a');
       unit('var declaration', ['var', ['x', ['number', 1]]], 'var x = 1');
+      unit('var declaration (with binop)', [
+        'var', ['x', ['binop', ',', ['number', 1], ['number', 2]]]
+      ], 'var x = (1 , 2)');
+      unit('two statements', ['begin',
+        ['stmt', ['var', 'x']],
+        ['stmt', ['var', 'y']]
+      ], '{var x;var y}');
       unit(
         'block with statements',
-        ['begin', ['get', 'x'], ['var', ['x', ['number', 1]]]],
+        [ 'begin',
+          ['stmt', ['get', 'x']],
+          ['stmt', ['var', ['x', ['number', 1]]]]
+        ],
         '{x;var x = 1}'
       );
       unit(
@@ -145,9 +155,24 @@ suite('Ometajs module', function() {
         'x + y'
       );
       unit(
+        'binop and assignment',
+        ['binop', '+', ['get', 'x'], ['set', ['get', 'y'], ['number', 1]]],
+        'x + (y = 1)'
+      );
+      unit(
         'complex assignment',
         ['set', ['getp', ['get', 'x'], ['get', 'y']], ['get', 'z']],
         'y[x] = z'
+      );
+      unit(
+        'anonymous call',
+        ['call', ['func', null, [], ['begin']]],
+        '(function (){})()'
+      );
+      unit(
+        'delete keyword',
+        ['unop', 'delete', ['get', 'a']],
+        'delete a'
       );
     });
   });
