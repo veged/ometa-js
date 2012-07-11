@@ -174,6 +174,11 @@ suite('Ometajs module', function() {
         ['unop', 'delete', ['get', 'a']],
         'delete a'
       );
+      unit(
+        'property lookup (regr)',
+        ['getp', ['string', 'a-b'], ['get', 'a']],
+        'a["a-b"]'
+      );
     });
   });
 
