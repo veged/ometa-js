@@ -180,6 +180,11 @@ suite('Ometajs module', function() {
         'a["a-b"]'
       );
       unit(
+        'property lookup (regr#2)',
+        ['getp', ['string', 'for'], ['get', 'a']],
+        'a["for"]'
+      );
+      unit(
         'typeof plus dot',
         ['getp', ['string', 'b'], ['unop', 'typeof', ['get', 'a']]],
         '(typeof a).b'
