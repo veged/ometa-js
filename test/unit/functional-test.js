@@ -111,6 +111,14 @@ suite('Ometajs module', function() {
              ['func','i',[],['begin']]
            ]]
         ]);
+
+        js('a && b || c && d', [
+           'begin',
+           ['stmt',['binop','||',
+             ['binop','&&',['get','a'],['get','b']],
+             ['binop','&&',['get','c'],['get','d']]
+           ]]
+        ]);
       });
 
       suite('should parse real javascript like', function() {
