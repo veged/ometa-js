@@ -202,6 +202,17 @@ suite('Ometajs module', function() {
         ['getp', ['string', 'b'], ['unop', 'typeof', ['get', 'a']]],
         '(typeof a).b'
       );
+      unit(
+        '&& + || + &&',
+        [ 'binop', '&&',
+          ['binop', '&&',
+            ['get', 'a'],
+            ['binop', '||', ['get', 'b'], ['get', 'c']]
+          ],
+          ['get', 'd']
+        ],
+        'a && (b || c) && d'
+      );
     });
   });
 
