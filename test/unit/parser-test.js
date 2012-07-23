@@ -107,11 +107,19 @@ suite('Ometajs language parser', function() {
             'grammar',
             'name',
             null,
-            [ [ 'rule', 'rule', [ [ 'choice', [
-              [ 'string', 'a' ],
-              [ 'string', 'b' ],
-              [ 'string', 'c' ]
-            ] ] ] ] ]
+            [ [ 'rule', 'rule', [ [ 'seq', 'abc' ] ] ] ]
+          ] ]
+        );
+      });
+
+      test('regexp', function() {
+        unit(
+          'ometa name { rule /abc/gim }',
+          [ [
+            'grammar',
+            'name',
+            null,
+            [ [ 'rule', 'rule', [ [ 're', '/abc/gim' ] ] ] ]
           ] ]
         );
       });
