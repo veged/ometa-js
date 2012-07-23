@@ -213,6 +213,11 @@ suite('Ometajs module', function() {
         ],
         'a && (b || c) && d'
       );
+      unit(
+        'array and ,',
+        ['arr', ['binop', ',', ['get', 'a'], ['get', 'b']]],
+        '[(a , b)]'
+      );
     });
   });
 
