@@ -1,0 +1,3 @@
+ometa Grammar {
+  prop = (~'.')+:prop -> [#prop, prop.join('')]
+}
