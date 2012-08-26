@@ -27,10 +27,12 @@ suite('Ometajs language lexer', function() {
       { type: 'space', value: ' ', offset: 60 },
       { type: 'number', value: '123', offset: 61 },
       { type: 'punc', value: ']', offset: 64 },
-      { type: 're', value: '/123abc/', offset: 65 }
+      { type: 're', value: '/123abc/', offset: 65 },
+      { type: 'space', value: ' ', offset: 73 },
+      { type: 'punc', value: '/', offset: 74 }
     ], common.lexems('abc `abc \'"a""\\\'\' "abc" ' +
                      '{} [#a ]// 123\n"123"' +
-                     '/* \n123\r */[#123 123]/123abc/'));
+                     '/* \n123\r */[#123 123]/123abc/ /'));
   });
 
 });
