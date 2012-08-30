@@ -37,6 +37,14 @@ suite('Ometajs module', function() {
     });
   });
 
+  suite('given a regr-1 grammar', function() {
+    var grmr = common.require('regr-1').Regr1;
+
+    test('should match input successfully', function() {
+      unit(grmr, 'run', '123', true);
+    });
+  });
+
   suite('given a javascript grammar\'s', function() {
     suite('parser', function() {
       var grmr = common.ometajs.grammars.BSJSParser;
