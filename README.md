@@ -8,7 +8,7 @@
 
 ## OMetaJS [![Build Status](https://secure.travis-ci.org/veged/ometa-js.png)](http://travis-ci.org/veged/ometa-js)
 
-OMetaJS is a JavaScript implementation of the OMeta, an object-oriented language
+OMetaJS is a JavaScript implementation of OMeta, an object-oriented language
 for pattern matching.
 
 This is a *node.js* module for developing and using such pattern matching
@@ -28,7 +28,7 @@ $ curl http://npmjs.org/install.sh | sh
 $ [sudo] npm install ometajs -g
 ```
 
-**Note:** If you are using ometajs _programatically_ you should not install
+**Note:** If you are using ometajs _programmatically_ you should not install
 it globally.
 
 ``` bash
@@ -55,13 +55,13 @@ Options:
   --root=ROOT : Path to root module (default: ometajs)
 ```
 
-`ometajs2js` will take input `*.ometajs` file and produce [CommonJS][0]
+`ometajs2js` will take input `*.ometajs` file and produce a [CommonJS][0]-
 compatible javascript file.
 
-Also you may `require('*.ometajs')` files directly without compilation.
-(OmetaJS is patching `require.extensions` as [CoffeeScript][1] does).
+You may also `require('*.ometajs')` files directly without compilation.
+(OMetaJS is patching `require.extensions` as [CoffeeScript][1] does).
 
-### Using as CommonJS module
+### Usage as CommonJS module
 
 ```javascript
 var ometajs = require('ometajs');
@@ -69,7 +69,6 @@ var ometajs = require('ometajs');
 var ast = ometajs.grammars.BSJSParser.matchAll('var x = 1', 'topLevel'),
     code = ometajs.grammars.BSJSTranslator.matchAll([ast], 'trans');
 ```
-Example
 
 ### Example grammar
 
@@ -79,14 +78,14 @@ ometa Simple {
 }
 ```
 
-[More information][5] about OmetaJS syntax.
+[More information][5] about OMetaJS syntax.
 
 ### Use cases
 
-Fast prototyping and building your own parser/language. Processing/traversing
-complex [AST][2].
+Quickly prototype and buildyour own parser/language. Process/traverse complex
+[AST][2].
 
-Some projects that are using this:
+Some projects that are using OMetaJS:
 
  -   [XJST](http://github.com/veged/xjst)
  -   [ShmakoWiki](http://github.com/veged/shmakowiki/)
@@ -94,10 +93,10 @@ Some projects that are using this:
 
 ### More information
 
-To study OmetaJS or ask questions about it's core you can try to reach out
+To study OMetaJS or ask questions about its core you can reach out to the
 [original repository][3] author [Alessandro Warth][4] or me.
 
-Here is [documented code][5].
+Here is the [documented code][5].
 
 #### Contributors
 
