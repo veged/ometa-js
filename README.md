@@ -105,6 +105,7 @@ Here is the [documented code][5].
 * [Sergey Berezhnoy](https://github.com/veged)
 * [Nikita Vasilyev](https://github.com/NV)
 * [Fedor Indutny](https://github.com/indutny)
+* [Jason Davies](https://github.com/jasondavies)
 
 [0]: http://www.commonjs.org/
 [1]: http://coffeescript.org/
