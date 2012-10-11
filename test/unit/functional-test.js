@@ -226,6 +226,11 @@ suite('Ometajs module', function() {
         ['arr', ['binop', ',', ['get', 'a'], ['get', 'b']]],
         '[(a , b)]'
       );
+      unit(
+        'call and ,',
+        ['call', ['get', 'a'], ['binop', ',', ['get', 'a'], ['get', 'b']]],
+        'a((a , b))'
+      );
     });
   });
 
