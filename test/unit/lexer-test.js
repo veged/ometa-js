@@ -33,6 +33,17 @@ suite('Ometajs language lexer', function() {
     ], common.lexems('abc `abc \'"a""\\\'\' "abc" ' +
                      '{} [#a ]// 123\n"123"' +
                      '/* \n123\r */[#123 123]/123abc/ /'));
+    assert.deepEqual([
+      { type: 'punc', value: '(', offset: 0 },
+      { type: 'name', value: 'a', offset: 1 },
+      { type: 'space', value: ' ', offset: 2 },
+      { type: 'punc', value: '/', offset: 3 },
+      { type: 'space', value: ' ', offset: 4 },
+      { type: 'name', value: 'b', offset: 5 },
+      { type: 'punc', value: ')', offset: 6 },
+      { type: 'space', value: '\n', offset: 7 },
+      { type: 'space', value: '// b', offset: 8 },
+    ], common.lexems('(a / b)\n// b'));
   });
 
 });
