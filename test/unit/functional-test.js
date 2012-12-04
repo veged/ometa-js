@@ -231,6 +231,11 @@ suite('Ometajs module', function() {
         ['call', ['get', 'a'], ['binop', ',', ['get', 'a'], ['get', 'b']]],
         'a((a , b))'
       );
+      unit(
+        'json and ,',
+        ['json', ['binding', 'a', ['binop', ',', ['get', 'a'], ['get', 'b']]]],
+        '{"a": (a , b)}'
+      );
     });
   });
 
