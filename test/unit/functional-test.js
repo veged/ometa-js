@@ -143,7 +143,9 @@ suite('Ometajs module', function() {
 
       function unit(name, ast, source) {
         test(name, function() {
-          assert.equal(grmr.match(ast, 'trans'), source);
+          var out = grmr.match(ast, 'trans');
+          console.log(require('util').inspect(out, false, 20));
+          if (source) assert.equal(out, source);
         });
       }
 
@@ -236,6 +238,12 @@ suite('Ometajs module', function() {
         ['json', ['binding', 'a', ['binop', ',', ['get', 'a'], ['get', 'b']]]],
         '{"a": (a , b)}'
       );
+
+      var parser = common.ometajs.grammars.BSJSParser;
+      var jquery = parser.matchAll(common.readFile('jquery.js'), 'topLevel', {
+        trackOffset: true
+      });
+      unit('big fat', jquery);
     });
   });
 
