@@ -144,7 +144,8 @@ suite('Ometajs module', function() {
       function unit(name, ast, source) {
         test(name, function() {
           var out = grmr.match(ast, 'trans');
-          console.log(require('util').inspect(out, false, 20));
+          console.log(require('util').inspect(out, false, 300));
+          new common.ometajs.utils.SourceMap(out);
           if (source) assert.equal(out, source);
         });
       }
@@ -240,7 +241,7 @@ suite('Ometajs module', function() {
       );
 
       var parser = common.ometajs.grammars.BSJSParser;
-      var jquery = parser.matchAll(common.readFile('jquery.js'), 'topLevel', {
+      var jquery = parser.matchAll(common.readFile('test.js'), 'topLevel', {
         trackOffset: true
       });
       unit('big fat', jquery);
