@@ -127,6 +127,11 @@ suite('Ometajs module', function() {
              ['binop','&&',['get','c'],['get','d']]
            ]]
         ]);
+
+        js('(a)', [
+           'begin',
+           ['stmt',['parens', ['get', 'a']]]
+        ]);
       });
 
       suite('should parse real javascript like', function() {
@@ -235,6 +240,11 @@ suite('Ometajs module', function() {
         'json and ,',
         ['json', ['binding', 'a', ['binop', ',', ['get', 'a'], ['get', 'b']]]],
         '{"a": (a , b)}'
+      );
+      unit(
+        'parens',
+        ['parens', ['get', 'b']],
+        '(b)'
       );
     });
   });
