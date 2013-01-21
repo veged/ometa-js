@@ -129,6 +129,7 @@ suite('Ometajs module', function() {
         ]);
       });
 
+      return;
       suite('should parse real javascript like', function() {
         test('jquery', function() {
           assert.doesNotThrow(function() {
@@ -144,8 +145,6 @@ suite('Ometajs module', function() {
       function unit(name, ast, source) {
         test(name, function() {
           var out = grmr.match(ast, 'trans');
-          console.log(require('util').inspect(out, false, 300));
-          new common.ometajs.utils.SourceMap(out);
           if (source) assert.equal(out, source);
         });
       }
@@ -239,12 +238,31 @@ suite('Ometajs module', function() {
         ['json', ['binding', 'a', ['binop', ',', ['get', 'a'], ['get', 'b']]]],
         '{"a": (a , b)}'
       );
+    });
+
+    suite('sourcemaps', function() {
+      var grmr = common.ometajs.grammars.BSJSTranslator;
+
+      function unit(name, ast, source) {
+        test(name, function() {
+          var out = grmr.match(ast, 'trans', {
+            sourcemap: function(map) {
+              console.log(map.generate({
+                file: 'mix.js',
+                original: 'orig.js'
+              }));
+            }
+          });
+          console.log(out);
+          if (source) assert.equal(out, source);
+        });
+      }
 
       var parser = common.ometajs.grammars.BSJSParser;
-      var jquery = parser.matchAll(common.readFile('test.js'), 'topLevel', {
+      var file = parser.matchAll(common.readFile('test.js'), 'topLevel', {
         trackOffset: true
       });
-      unit('big fat', jquery);
+      unit('big fat', file);
     });
   });
 
