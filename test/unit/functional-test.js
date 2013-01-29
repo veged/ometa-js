@@ -132,6 +132,11 @@ suite('Ometajs module', function() {
            'begin',
            ['stmt',['parens', ['get', 'a']]]
         ]);
+
+        js('"a\\-b\\-c"', [
+           'begin',
+           ['stmt',['string', 'a-b-c']]
+        ]);
       });
 
       suite('should parse real javascript like', function() {
