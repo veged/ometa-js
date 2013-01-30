@@ -137,6 +137,11 @@ suite('Ometajs module', function() {
            'begin',
            ['stmt',['string', 'a-b-c']]
         ]);
+
+        js('"\\"str\\""', [
+           'begin',
+           ['stmt',['string', '"str"']]
+        ]);
       });
 
       suite('should parse real javascript like', function() {
