@@ -1,0 +1,13 @@
+{
+    "title": "OMetaJS",
+    "createDate": "20-10-2010",
+    "editDate": "",
+    "summary": "OMetaJS это реализация OMeta на JavaScript.",
+    "thumbnail": "",
+    "authors": ["berezhnoy-sergey"],
+    "tags": ["tools", "JavaScript"],
+    "categories": [{"name": "Парсеры/OMetaJS", "url": "parsers/ometa-js", "order": "40/10"}],
+    "translators": [],
+    "url": "/doc/ometa-js/",
+    "type": "tools"
+}

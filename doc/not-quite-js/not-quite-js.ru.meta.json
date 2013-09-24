@@ -1,0 +1,14 @@
+{
+    "title": "Не совсем JS",
+    "longTitle": "OMetaJS - не совсем JS",
+    "createDate": "09-09-2010",
+    "editDate": "",
+    "summary": "Разница между \"настоящим\" JavaScript и JavaScript который может быть использован в OMetaJS.",
+    "thumbnail": "",
+    "authors": ["berezhnoy-sergey"],
+    "tags": ["tools", "JavaScript"],
+    "categories": [{"name": "Парсеры/OMetaJS", "url": "parsers/ometa-js", "order": "40/10"}],
+    "translators": [],
+    "url": "/doc/ometa-js/",
+    "type": "tools"
+}
