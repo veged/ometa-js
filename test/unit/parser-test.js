@@ -499,12 +499,12 @@ suite('Ometajs language parser', function() {
 
       test('arg of rule', function() {
         unit(
-          'ometa name { rule { x = y * x + fn(1,2,3); } }',
+          'ometa name { rule { y = {}; x = y * x + fn(1,2,3); } }',
           [ [
             'grammar', 'name', null,
             [ [ 'rule', 'rule', [[
               'body',
-              common.expressionify('x = y * x + fn(1,2,3); ')
+              common.expressionify('y = {}; x = y * x + fn(1,2,3); ')
             ]] ] ]
           ] ]
         );
