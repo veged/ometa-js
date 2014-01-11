@@ -28,6 +28,29 @@ suite('Ometajs module', function() {
     });
   });
 
+  suite('parse errors', function() {
+    function testErrorReport(expr, line, column, done) {
+      var grmr = common.require('lr').LeftRecursion,
+          g = new grmr(expr);
+
+      g._rule('expr');
+      g._getError(function(error) {
+          assert.equal(error.line, line);
+          assert.equal(error.column, column);
+          done();
+      });
+    }
+
+    test('should be reported correctly for short lines', function(done) {
+        testErrorReport('123 ^ 2', 1, 5, done);
+    });
+
+    test('should be reported correctly for long lines lines', function(done) {
+        var line = '123' + new Array(80).join(' ') + '^';
+        testErrorReport(line, 1, 83, done);
+    });
+  });
+
   suite('given a grammar with local statement', function() {
     var grmr = common.require('local').Local;
 
