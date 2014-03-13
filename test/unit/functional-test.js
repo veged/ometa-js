@@ -165,6 +165,11 @@ suite('Ometajs module', function() {
            'begin',
            ['stmt',['string', '"str"']]
         ]);
+
+        js('"\\u00A0"', [
+          'begin',
+          ['stmt',['string', '\u00A0']],
+        ]);
       });
 
       suite('should parse real javascript like', function() {
