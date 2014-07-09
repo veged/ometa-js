@@ -349,6 +349,23 @@ suite('Ometajs language parser', function() {
         );
       });
 
+      test('super invocation with args', function() {
+        // XXX: Why 1, 2, 3 are parsing to strings?
+        unit(
+          'ometa name { rule ^rule(1, 2, 3) }',
+          [ [
+            'grammar',
+            'name',
+            null,
+            [ [
+              'rule', 'rule', [
+                [ 'super', [ 'call', null, 'rule', [ '1', '2', '3' ] ] ]
+            ]
+            ] ]
+          ] ]
+        );
+      });
+
       test('lookahead and named match', function() {
         unit(
           'ometa name { rule &a :b }',

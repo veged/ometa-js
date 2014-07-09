@@ -68,6 +68,14 @@ suite('Ometajs module', function() {
     });
   });
 
+  suite('given a super calls with arguments grammar', function() {
+    var grmr = common.require('regr-2').R2_B;
+
+    test('should invoke super rule successfully', function() {
+      unit(grmr, 'run', '', 'ok');
+    });
+  });
+
   suite('given a javascript grammar\'s', function() {
     suite('parser', function() {
       var grmr = common.ometajs.grammars.BSJSParser;

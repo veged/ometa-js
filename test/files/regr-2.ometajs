@@ -1,0 +1,7 @@
+ometa R2_A {
+  run :p -> p
+}
+
+ometa R2_B <: R2_A {
+  run = ^run("ok")
+}
