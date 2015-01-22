@@ -514,6 +514,19 @@ suite('Ometajs language parser', function() {
         );
       });
 
+      test('arg of rule followed by string', function() {
+        unit(
+          'ometa name { rule ?(1) \'===\' }',
+          [ [
+            'grammar', 'name', null,
+            [ [ 'rule', 'rule', [
+              [ 'predicate', '1' ],
+              [ 'string', '===' ]
+            ] ] ]
+          ] ]
+        );
+      });
+
       test('arg of rule', function() {
         unit(
           'ometa name { rule { y = {}; x = y * x + fn(1,2,3); } }',
