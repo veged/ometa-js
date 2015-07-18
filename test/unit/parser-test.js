@@ -349,17 +349,16 @@ suite('Ometajs language parser', function() {
         );
       });
 
-      test('super invocation with args', function() {
-        // XXX: Why 1, 2, 3 are parsing to strings?
+      test('super invocation with mixed-type args', function() {
         unit(
-          'ometa name { rule ^rule(1, 2, 3) }',
+          'ometa name { rule ^rule(1, #2, 3) }',
           [ [
             'grammar',
             'name',
             null,
             [ [
               'rule', 'rule', [
-                [ 'super', [ 'call', null, 'rule', [ '1', '2', '3' ] ] ]
+                [ 'super', [ 'call', null, 'rule', [ '1', '"2"', '3' ] ] ]
             ]
             ] ]
           ] ]
