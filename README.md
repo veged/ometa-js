@@ -52,7 +52,8 @@ Options:
   -v, --version : Version
   -i INPUT, --input=INPUT : Input file (default: stdin)
   -o OUTPUT, --output=OUTPUT : Output file (default: stdout)
-  --root=ROOT : Path to root module (default: ometajs)
+  -b, --beautify : Beautify js output (default: false)
+  -r ROOT, --root=ROOT : Path to root module (default: ometajs)
 ```
 
 `ometajs2js` will take input `*.ometajs` file and produce a [CommonJS][0]-
